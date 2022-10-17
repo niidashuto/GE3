@@ -223,6 +223,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
    
 
 #pragma region WindowsAPI初期化処理
+    MSG msg{};  // メッセージ
     //ポインタ
     WinApp* winApp = nullptr;
 
@@ -857,7 +858,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // 射影変換行列(透視投影)
     XMMATRIX matProjection = XMMatrixPerspectiveFovLH(
         XMConvertToRadians(45.0f),
-        (float)window_width / window_height,
+        (float)winApp->widow_width / winApp->widow_height,
         0.1f, 1000.0f
     );
 
@@ -1007,8 +1008,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         // ４．描画コマンドここから
         // ビューポート設定コマンド
         D3D12_VIEWPORT viewport{};
-        viewport.Width = window_width;
-        viewport.Height = window_height;
+        viewport.Width = winApp->widow_width;
+        viewport.Height = winApp->widow_height;
         viewport.TopLeftX = 0;
         viewport.TopLeftY = 0;
         viewport.MinDepth = 0.0f;
@@ -1019,9 +1020,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         // シザー矩形
         D3D12_RECT scissorRect{};
         scissorRect.left = 0;                                       // 切り抜き座標左
-        scissorRect.right = scissorRect.left + window_width;        // 切り抜き座標右
+        scissorRect.right = scissorRect.left + winApp->widow_width;        // 切り抜き座標右
         scissorRect.top = 0;                                        // 切り抜き座標上
-        scissorRect.bottom = scissorRect.top + window_height;       // 切り抜き座標下
+        scissorRect.bottom = scissorRect.top + winApp->widow_height;       // 切り抜き座標下
         // シザー矩形設定コマンドを、コマンドリストに積む
         commandList->RSSetScissorRects(1, &scissorRect);
         // プリミティブ形状の設定コマンド
@@ -1091,7 +1092,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     delete input;
     delete winApp;
     // ウィンドウクラスを登録解除
-    UnregisterClass(w.lpszClassName, w.hInstance);
+    UnregisterClass(w.lpszClassName, winApp->GetHInstance());
 
     return 0;
 }

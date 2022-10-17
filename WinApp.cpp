@@ -15,8 +15,8 @@ void WinApp::Initialize()
 
     // ウィンドウクラスをOSに登録する
     RegisterClassEx(&w);
-    // ウィンドウサイズ{ X座標 Y座標 横幅 縦幅 }
-    RECT wrc = { 0, 0, window_width, window_height };
+    
+    
     // 自動でサイズを補正する
     AdjustWindowRect(&wrc, WS_OVERLAPPEDWINDOW, false);
 
@@ -36,7 +36,7 @@ void WinApp::Initialize()
     // ウィンドウを表示状態にする
     ShowWindow(hwnd, SW_SHOW);
 
-    MSG msg{};  // メッセージ
+    
 }
 
 void WinApp::Update()
