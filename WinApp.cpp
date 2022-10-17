@@ -1,5 +1,18 @@
-#include <Windows.h>
+
 #include "WinApp.h"
+
+LRESULT WinApp::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
+{
+    //メッセージで分岐
+    switch (msg)
+    {
+    case WM_DESTROY://ウィンドウが破棄された
+        PostQuitMessage(0);//OSに対して、アプリの終了を伝える
+        return 0;
+
+    }
+    return DefWindowProc(hwnd, msg, wparam, lparam);//標準の処理を行う
+}
 
 void WinApp::Initialize()
 {
@@ -15,8 +28,8 @@ void WinApp::Initialize()
 
     // ウィンドウクラスをOSに登録する
     RegisterClassEx(&w);
-    // ウィンドウサイズ{ X座標 Y座標 横幅 縦幅 }
-    RECT wrc = { 0, 0, window_width, window_height };
+    
+    RECT wrc = { 0,0,widow_width,widow_height };
     // 自動でサイズを補正する
     AdjustWindowRect(&wrc, WS_OVERLAPPEDWINDOW, false);
 
@@ -36,7 +49,7 @@ void WinApp::Initialize()
     // ウィンドウを表示状態にする
     ShowWindow(hwnd, SW_SHOW);
 
-    MSG msg{};  // メッセージ
+   
 }
 
 void WinApp::Update()
@@ -44,15 +57,10 @@ void WinApp::Update()
 
 }
 
-LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
+
+
+void WinApp::Finalize()
 {
-    //メッセージで分岐
-    switch (msg)
-    {
-    case WM_DESTROY://ウィンドウが破棄された
-        PostQuitMessage(0);//OSに対して、アプリの終了を伝える
-        return 0;
-        
-    }
-    return DefWindowProc(hwnd, msg, wparam, lparam);//標準の処理を行う
+    //ウィンドウクラスを登録解除
+    UnregisterClass(w.lpszClassName, w.hInstance);
 }

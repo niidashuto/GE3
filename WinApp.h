@@ -1,4 +1,5 @@
 #pragma once
+#include <Windows.h>
 
 //WindowsAPI
 class WinApp
@@ -15,6 +16,8 @@ public://メンバ関数
 	HWND GetHwnd() const { return hwnd; }
 	
 	HINSTANCE GetHInstance() const { return w.hInstance; }
+	//終了
+	void Finalize();
 
 private:
 	//ウィンドウハンドル
