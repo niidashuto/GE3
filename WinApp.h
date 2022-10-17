@@ -11,5 +11,19 @@ public://メンバ関数
 	void Initialize();
 	//更新
 	void Update();
+	//getter
+	HWND GetHwnd() const { return hwnd; }
+	
+	HINSTANCE GetHInstance() const { return w.hInstance; }
 
+private:
+	//ウィンドウハンドル
+	HWND hwnd = nullptr;
+	//ウィンドウクラスの設定
+	WNDCLASSEX w{};
+public://定数
+	//ウィンドウ横幅
+	static const int widow_width = 1280;
+	//ウィンドウ縦幅
+	static const int widow_height = 720;
 };

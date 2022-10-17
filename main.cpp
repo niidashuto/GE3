@@ -361,7 +361,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     ComPtr<IDXGISwapChain1> swapChain1;
     // スワップチェーンの生成
     result = dxgiFactory->CreateSwapChainForHwnd(
-        commandQueue.Get(), hwnd, &swapChainDesc, nullptr, nullptr, &swapChain1);
+        commandQueue.Get(), winApp->GetHwnd(), &swapChainDesc, nullptr, nullptr, &swapChain1);
     assert(SUCCEEDED(result));
 
     // SwapChain4を得る
@@ -399,8 +399,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // リソース設定
     D3D12_RESOURCE_DESC depthResourceDesc{};
     depthResourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
-    depthResourceDesc.Width = window_width; // レンダーターゲットに合わせる
-    depthResourceDesc.Height = window_height; // レンダーターゲットに合わせる
+    depthResourceDesc.Width = WinApp::widow_width; // レンダーターゲットに合わせる
+    depthResourceDesc.Height = WinApp::widow_height; // レンダーターゲットに合わせる
     depthResourceDesc.DepthOrArraySize = 1;
     depthResourceDesc.Format = DXGI_FORMAT_D32_FLOAT; // 深度値フォーマット
     depthResourceDesc.SampleDesc.Count = 1;
@@ -451,7 +451,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     //入力の初期化
     input = new Input();
-    input->Initialize(w.hInstance,hwnd);
+    input->Initialize(winApp->GetHInstance(), winApp->GetHwnd());
 
 #pragma region 描画初期化処理
 
