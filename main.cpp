@@ -223,7 +223,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
    
 
 #pragma region WindowsAPI初期化処理
-    MSG msg{};  // メッセージ
+    
     //ポインタ
     WinApp* winApp = nullptr;
 
@@ -927,14 +927,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     // ゲームループ
     while (true) {
-        // メッセージがある？
-        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
-            TranslateMessage(&msg); // キー入力メッセージの処理
-            DispatchMessage(&msg); // プロシージャにメッセージを送る
-        }
-
-        // ✖ボタンで終了メッセージが来たらゲームループを抜ける
-        if (msg.message == WM_QUIT) {
+       
+        //Windowsのメッセージ処理
+        if (winApp->ProcessMessage()) {
+            //ゲームループを抜ける
             break;
         }
 
