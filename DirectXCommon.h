@@ -1,5 +1,4 @@
 #pragma once
-#include <cassert>
 
 #include <d3d12.h>
 #include <dxgi1_6.h>
@@ -43,10 +42,17 @@ private:
     Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> rtvHeap;
 
     Microsoft::WRL::ComPtr<IDXGISwapChain4> swapChain;
+
+    Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> dsvHeap;
+
+    Microsoft::WRL::ComPtr<ID3D12Fence> fence;
 	//バックバッファ
 	std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>> backBuffers;
 private:
 	//WindowsAPI
 	WinApp* winApp = nullptr;
+public:
+    //フェンス値
+    UINT64 fenceVal = 0;
 
 };
