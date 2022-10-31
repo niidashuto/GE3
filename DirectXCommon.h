@@ -29,7 +29,7 @@ public://メンバ関数
     void PostDraw();
 private:
 	//DirectX12デバイス
-	Microsoft::WRL::ComPtr<ID3D12Device> device;
+    ID3D12Device* GetDevice() const { return device; }
 	//DXGIファクトリ
 	Microsoft::WRL::ComPtr<IDXGIFactory7> dxgiFactory;
 
