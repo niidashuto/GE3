@@ -175,21 +175,21 @@ void DirectXCommon::InitializeRenderTargetView()
 {
     HRESULT result;
 
-
+    DXGI_SWAP_CHAIN_DESC1 swapChainDesc{};
 
     // デスクリプタヒープの設定
     D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc{};
     rtvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV; // レンダーターゲットビュー
-    //rtvHeapDesc.NumDescriptors = swapChainDesc.BufferCount;    // 裏表の２つ
+    rtvHeapDesc.NumDescriptors = swapChainDesc.BufferCount;    // 裏表の２つ
     // デスクリプタヒープの生成
     device->CreateDescriptorHeap(&rtvHeapDesc, IID_PPV_ARGS(&rtvHeap));
 
     // バックバッファ
     //std::vector<ComPtr<ID3D12Resource>> backBuffers;
-    //backBuffers.resize(swapChainDesc.BufferCount);
+    backBuffers.resize(swapChainDesc.BufferCount);
 
     // スワップチェーンの全てのバッファについて処理する
-    for (int i = 0; i < 2; i++) {
+    for (size_t i = 0; i < backBuffers.size(); i++) {
         // スワップチェーンからバッファを取得
         swapChain->GetBuffer((UINT)i, IID_PPV_ARGS(&backBuffers[i]));
         // デスクリプタヒープのハンドルを取得
