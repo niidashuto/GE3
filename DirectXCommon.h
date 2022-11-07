@@ -17,6 +17,10 @@ public://メンバ関数
 	//描画後処理
 	void PostDraw();
 
+	ID3D12Device* GetDevice() const { return device.Get(); }
+
+	ID3D12GraphicsCommandList* GetCommandList() const { return commandList.Get(); }
+
 private:
 	void InitializeDevice();
 
@@ -29,6 +33,8 @@ private:
 	void InitializeDepthBuffer();
 
 	void InitializeFence();
+
+	
 
 private:
 	//DirectX12デバイス
