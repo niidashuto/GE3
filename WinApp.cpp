@@ -1,7 +1,7 @@
-
 #include "WinApp.h"
 #pragma comment(lib,"winmm.lib")
 
+//ウィンドウプロシージャ
 LRESULT WinApp::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
     //メッセージで分岐
@@ -14,7 +14,7 @@ LRESULT WinApp::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
     }
     return DefWindowProc(hwnd, msg, wparam, lparam);//標準の処理を行う
 }
-
+//初期化
 void WinApp::Initialize()
 {
     //システムタイマーの分解能を上げる
@@ -52,20 +52,18 @@ void WinApp::Initialize()
 
    
 }
-
+//更新
 void WinApp::Update()
 {
 
 }
-
-
-
+//終了
 void WinApp::Finalize()
 {
     //ウィンドウクラスを登録解除
     UnregisterClass(w.lpszClassName, w.hInstance);
 }
-
+//メッセージの処理
 bool WinApp::ProcessMessage()
 {
     MSG msg{};  // メッセージ

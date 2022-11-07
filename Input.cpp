@@ -1,12 +1,9 @@
 #include "Input.h"
 #include <cassert>
 
-
-
-
 #pragma comment(lib,"dinput8.lib")
 #pragma comment(lib,"dxguid.lib")
-
+//初期化
 void Input::Initialize(WinApp* winApp)
 {
     this->winApp_ = winApp;
@@ -30,7 +27,7 @@ void Input::Initialize(WinApp* winApp)
     assert(SUCCEEDED(result));
 	
 }
-
+//更新
 void Input::Update()
 {
     //前回のキー入力を保持
@@ -41,7 +38,7 @@ void Input::Update()
     
     keyboard->GetDeviceState(sizeof(key), key);
 }
-
+//キーの押下をチェック
 bool Input::Pushkey(BYTE keyNumber) 
 {
     //指定キーを押していればtrueを返す
@@ -51,7 +48,7 @@ bool Input::Pushkey(BYTE keyNumber)
     }
     return false;
 }
-
+//キーのトリガーをチェック
 bool Input::TriggerKey(BYTE keyNumber) 
 {
     if (keyPre[keyNumber] == false && key[keyNumber])

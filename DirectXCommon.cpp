@@ -7,7 +7,7 @@
 #pragma comment(lib,"dxgi.lib")
 
 using namespace Microsoft::WRL;
-
+//初期化
 void DirectXCommon::Initialize(WinApp* winApp)
 {
     //FPS固定初期化
@@ -32,14 +32,14 @@ void DirectXCommon::Initialize(WinApp* winApp)
     InitializeFence();
     
 }
-
+//FPS固定初期化
 void DirectXCommon::InitializeFixFPS()
 {
     //現在時間を記録する
     reference_ = std::chrono::steady_clock::now();
     
 }
-
+//FPS固定更新
 void DirectXCommon::UpdateFixFPS()
 {
     //1/60秒ぴったりの時間
@@ -66,7 +66,7 @@ void DirectXCommon::UpdateFixFPS()
     //現在の時間を記録する
     reference_ = std::chrono::steady_clock::now();
 }
-
+//描画前処理
 void DirectXCommon::PreDraw()
 {
     // バックバッファの番号を取得（2つなので0番か1番）
@@ -113,7 +113,7 @@ void DirectXCommon::PreDraw()
     // シザー矩形設定コマンドを、コマンドリストに積む
     commandList->RSSetScissorRects(1, &scissorRect);
 }
-
+//描画後処理
 void DirectXCommon::PostDraw()
 {
     HRESULT result;
@@ -157,7 +157,7 @@ void DirectXCommon::PostDraw()
     result = commandList->Reset(commandAllocator.Get(), nullptr);
     assert(SUCCEEDED(result));
 }
-
+//デバイスの初期化
 void DirectXCommon::InitializeDevice()
 {
     HRESULT result;
@@ -249,7 +249,7 @@ void DirectXCommon::InitializeDevice()
     }
 #endif
 }
-
+//コマンド関連の初期化
 void DirectXCommon::InitializeCommand()
 {
     HRESULT result;
@@ -268,7 +268,7 @@ void DirectXCommon::InitializeCommand()
     result = device->CreateCommandQueue(&commandQueueDesc, IID_PPV_ARGS(&commandQueue));
     assert(SUCCEEDED(result));
 }
-
+//スワップチェーンの初期化
 void DirectXCommon::InitializeSwapChain()
 {
     HRESULT result;
@@ -293,7 +293,7 @@ void DirectXCommon::InitializeSwapChain()
     swapChain1->QueryInterface(IID_PPV_ARGS(&swapChain));
     assert(SUCCEEDED(result));
 }
-
+//レンダーターゲットビューの初期化
 void DirectXCommon::InitializeRenderTargetView()
 {
    
@@ -325,7 +325,7 @@ void DirectXCommon::InitializeRenderTargetView()
         device->CreateRenderTargetView(backBuffers[i].Get(), &rtvDesc, rtvHandle);
     }
 }
-
+//深度バッファの初期化
 void DirectXCommon::InitializeDepthBuffer()
 {
     HRESULT result;
@@ -371,7 +371,7 @@ void DirectXCommon::InitializeDepthBuffer()
         &dsvDesc,
         dsvHeap->GetCPUDescriptorHandleForHeapStart());
 }
-
+//フェンスの初期化
 void DirectXCommon::InitializeFence()
 {
     HRESULT result;

@@ -5,6 +5,7 @@
 class WinApp
 {
 public://静的メンバ関数
+	//ウィンドウプロシージャ
 	static LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 
 public://メンバ関数
@@ -14,11 +15,9 @@ public://メンバ関数
 	void Update();
 	//getter
 	HWND GetHwnd() const { return hwnd; }
-	
 	HINSTANCE GetHInstance() const { return w.hInstance; }
 	//終了
 	void Finalize();
-
 	//メッセージの処理
 	bool ProcessMessage();
 
