@@ -12,6 +12,10 @@ class DirectXCommon
 public://ƒƒ“ƒoŠÖ”
 	//‰Šú‰»
 	void Initialize(WinApp* winApp);
+	//•`‰æ‘Oˆ—
+	void PreDraw();
+	//•`‰æŒãˆ—
+	void PostDraw();
 
 private:
 	void InitializeDevice();
@@ -53,4 +57,6 @@ private:
 	Microsoft::WRL::ComPtr<ID3D12Resource> depthBuff;
 
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> dsvHeap;
+
+	UINT64 fenceVal = 0;
 };
