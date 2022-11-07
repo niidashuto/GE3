@@ -5,6 +5,7 @@
 #include <wrl.h>
 #include "WinApp.h"
 #include <vector>
+#include <chrono>
 
 //DirectX基盤
 class DirectXCommon
@@ -21,7 +22,8 @@ public://メンバ関数
 
 	ID3D12GraphicsCommandList* GetCommandList() const { return commandList.Get(); }
 
-private:
+private://メンバ関数
+
 	void InitializeDevice();
 
 	void InitializeCommand();
@@ -34,7 +36,13 @@ private:
 
 	void InitializeFence();
 
-	
+	//FPS固定初期化
+	void InitializeFixFPS();
+	//FPS固定更新
+	void UpdateFixFPS();
+
+	//記録時間(FPS固定)
+	std::chrono::steady_clock::time_point reference_;
 
 private:
 	//DirectX12デバイス
