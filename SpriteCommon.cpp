@@ -9,6 +9,7 @@
 #pragma comment(lib,"d3dcompiler.lib")
 
 using namespace Microsoft::WRL;
+using namespace DirectX;
 
 void SpriteCommon::Initialize(DirectXCommon* dxCommon)
 {
@@ -16,6 +17,82 @@ void SpriteCommon::Initialize(DirectXCommon* dxCommon)
 
 	assert(dxCommon);
 	dxCommon_ = dxCommon;
+
+	imageData = new XMFLOAT4[imageDataCount];
+	for (size_t i = 0; i < imageDataCount; i++)
+	{
+		imageData[i].x = 1.0f;//R
+		imageData[i].y = 0.0f;//G
+		imageData[i].z = 0.0f;//B
+		imageData[i].w = 1.0f;//A
+	}
+
+	//テクスチャ
+	{
+		//ヒープ設定
+		D3D12_HEAP_PROPERTIES textureHeapProp{};
+		textureHeapProp.Type = D3D12_HEAP_TYPE_CUSTOM;
+		textureHeapProp.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_WRITE_BACK;
+		textureHeapProp.MemoryPoolPreference = D3D12_MEMORY_POOL_L0;
+
+		//リソース設定
+		D3D12_RESOURCE_DESC textureResourceDesc{};
+		textureResourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
+		textureResourceDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+		textureResourceDesc.Width = textureWidth;//幅
+		textureResourceDesc.Height = textureWidth;//高さ
+		textureResourceDesc.DepthOrArraySize = 1;
+		textureResourceDesc.MipLevels = 1;
+		textureResourceDesc.SampleDesc.Count = 1;
+
+		//テクスチャバッファの生成
+		
+		result = dxCommon_->GetDevice()->CreateCommittedResource(
+			&textureHeapProp,
+			D3D12_HEAP_FLAG_NONE,
+			&textureResourceDesc,
+			D3D12_RESOURCE_STATE_GENERIC_READ,
+			nullptr,
+			IID_PPV_ARGS(&texBuff));
+
+		//テクスチャバッファにデータ転送
+		result = texBuff->WriteToSubresource(
+			0,
+			nullptr,//全領域へコピー
+			imageData,//元データアドレス
+			sizeof(XMFLOAT4) * textureWidth,//１ラインサイズ
+			sizeof(XMFLOAT4) * imageDataCount//全サイズ
+		);
+		//元データ開放
+		delete[] imageData;
+	}
+
+	//SRVの最大個数
+	const size_t kMaxSRVCount = 2056;
+
+	//デスクリプタヒープの設定
+	D3D12_DESCRIPTOR_HEAP_DESC srvHeapDesc = {};
+	srvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+	srvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;//シェーダーから見えるように
+	srvHeapDesc.NumDescriptors = kMaxSRVCount;
+
+	//設定をもとにSRV用デスクリプターヒープを生成
+	
+	result = dxCommon_->GetDevice()->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&srvHeap));
+	assert(SUCCEEDED(result));
+
+	//SRVヒープの先頭ハンドルを取得
+	D3D12_CPU_DESCRIPTOR_HANDLE srvHandle = srvHeap->GetCPUDescriptorHandleForHeapStart();
+
+	//シェーダリソースビュー設定
+	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};//設定構造体
+	srvDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;//RGBA float
+	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;//2Dテクスチャ
+	srvDesc.Texture2D.MipLevels = 1;
+
+	//ハンドルのさす位置にシェーダーリソースビュー作成
+	dxCommon_->GetDevice()->CreateShaderResourceView(texBuff.Get(), &srvDesc, srvHandle);
 
 	ComPtr<ID3DBlob> vsBlob ;//頂点シェーダオブジェクト
 	ComPtr<ID3DBlob> psBlob;//ピクセルシェーダーオブジェクト
@@ -110,20 +187,45 @@ void SpriteCommon::Initialize(DirectXCommon* dxCommon)
 	pipelineDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;//0~255指定のRGBA
 	pipelineDesc.SampleDesc.Count = 1;//1ピクセルにつき一回サンプリング
 
+	//デスクリプタレンジの設定
+	//デスクリプタレンジの設定
+	D3D12_DESCRIPTOR_RANGE descriptorRange{};
+	descriptorRange.NumDescriptors = 1;//一度の描画に使うテクスチャが１枚なので１
+	descriptorRange.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
+	descriptorRange.BaseShaderRegister = 0; //テクスチャレジスタ0番
+	descriptorRange.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+
 	//ルートパラメータの設定
-	D3D12_ROOT_PARAMETER rootParam = {};
+	D3D12_ROOT_PARAMETER rootParam[2] = {};
 	//定数0
-	rootParam.ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;//定数バッファビュー
-	rootParam.Descriptor.ShaderRegister = 0;//定数バッファ番号
-	rootParam.Descriptor.RegisterSpace = 0;//デフォルト値
-	rootParam.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;//全てのシェーダから見える
-	
+	rootParam[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;//定数バッファビュー
+	rootParam[0].Descriptor.ShaderRegister = 0;//定数バッファ番号
+	rootParam[0].Descriptor.RegisterSpace = 0;//デフォルト値
+	rootParam[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;//全てのシェーダから見える
+	//テクスチャレジスタ0番
+	rootParam[1].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+	rootParam[1].DescriptorTable.pDescriptorRanges = &descriptorRange;
+	rootParam[1].DescriptorTable.NumDescriptorRanges = 1;
+	rootParam[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
+	//テクスチャサンプラーの設定
+	D3D12_STATIC_SAMPLER_DESC samplerDesc{};
+	samplerDesc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_WRAP;//横繰り返し(タイリング)
+	samplerDesc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP;//縦繰り返し（タイリング）
+	samplerDesc.AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP;//奥行繰り返し（タイリング）
+	samplerDesc.BorderColor = D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK;//ボーダーの時は黒
+	samplerDesc.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;//全てシニア補間
+	samplerDesc.MaxLOD = D3D12_FLOAT32_MAX;//ミップマップ最大値
+	samplerDesc.MinLOD = 0.0f;//ミップマップ最小値
+	samplerDesc.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;
+	samplerDesc.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;//ピクセルシェーダからのみ使用可能
 	
 	//ルートシグネチャの設定
 	D3D12_ROOT_SIGNATURE_DESC rootSignatureDesc{};
 	rootSignatureDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
-	rootSignatureDesc.pParameters = &rootParam;
-	rootSignatureDesc.NumParameters = 1;
+	rootSignatureDesc.pParameters = rootParam;
+	rootSignatureDesc.NumParameters = _countof(rootParam);
+	rootSignatureDesc.pStaticSamplers = &samplerDesc;
+	rootSignatureDesc.NumStaticSamplers = 1;
 	//シグネチャのシリアライズ
 	ComPtr<ID3D10Blob> rootSigBlob;
 	result = D3D12SerializeRootSignature(&rootSignatureDesc, D3D_ROOT_SIGNATURE_VERSION_1_0, &rootSigBlob, &errorBlob);
@@ -146,5 +248,11 @@ void SpriteCommon::PreDraw()
 	//パイプラインステートとルートシグネチャの設定コマンド
 	dxCommon_->GetCommandList()->SetPipelineState(pipelineState.Get());
 	dxCommon_->GetCommandList()->SetGraphicsRootSignature(rootSignature.Get());
-	
+
+	ID3D12DescriptorHeap* ppHeaps[] = { srvHeap.Get() };
+	dxCommon_->GetCommandList()->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps);
+	//SRVヒープの先頭ハンドルを取得(SRVを指しているはず)
+	D3D12_GPU_DESCRIPTOR_HANDLE srvGpuHandle = srvHeap->GetGPUDescriptorHandleForHeapStart();
+	//SRVヒープの先頭にあるSRVをルートパラメータ1番に設定
+	dxCommon_->GetCommandList()->SetGraphicsRootDescriptorTable(1, srvGpuHandle);
 }
