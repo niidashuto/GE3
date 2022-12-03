@@ -88,7 +88,7 @@ void Sprite::Initialize(SpriteCommon* spriteCommon)
 		//定数バッファのマッピング
 		result = constBuffMaterial->Map(0, nullptr, (void**)&constMapMaterial);//マッピング
 		assert(SUCCEEDED(result));
-		constMapMaterial->color = color;
+		
 	}
 	//行列
 	{
@@ -120,13 +120,67 @@ void Sprite::Initialize(SpriteCommon* spriteCommon)
 		//定数バッファのマッピング
 		result = constBuffTransform->Map(0, nullptr, (void**)&constMapTransform);//マッピング
 		assert(SUCCEEDED(result));
-		constMapTransform->mat = XMMatrixIdentity();
-		constMapTransform->mat.r[0].m128_f32[0] = 2.0f / window_width;
-		constMapTransform->mat.r[1].m128_f32[1] = -2.0f / window_height;
 
-		constMapTransform->mat.r[3].m128_f32[0] = -1.0f;
-		constMapTransform->mat.r[3].m128_f32[1] = 1.0f;
+		//ワールド
+		XMMATRIX matWorld;
+		matWorld = XMMatrixIdentity();
+
+		rotationZ = 0.0f;
+		position = { 0.0f,0.0f,0.0f };
+
+		//回転
+		XMMATRIX matRot;
+		matRot = XMMatrixIdentity();
+		matRot *= XMMatrixRotationZ(XMConvertToRadians(rotationZ));
+		matWorld *= matRot;
+
+		//平行移動
+		XMMATRIX matTrans;
+		matTrans = XMMatrixTranslation(position.x, position.y, position.z);
+		matWorld *= matTrans;
+
+		//射影変換
+		XMMATRIX matProjection = XMMatrixOrthographicOffCenterLH(
+			0.0f, WinApp::widow_width,
+			WinApp::widow_height, 0.0f,
+			0.0f, 1.0f
+		);
+
+		constMapTransform->mat = matWorld * matProjection;
+
 	}
+}
+
+void Sprite::Update()
+{
+	constMapMaterial->color = color;
+
+	//ワールド
+	XMMATRIX matWorld;
+	matWorld = XMMatrixIdentity();
+
+	rotationZ = 0.0f;
+	position = { 0.0f,0.0f,0.0f };
+
+	//回転
+	XMMATRIX matRot;
+	matRot = XMMatrixIdentity();
+	matRot *= XMMatrixRotationZ(XMConvertToRadians(rotationZ));
+	matWorld *= matRot;
+
+	//平行移動
+	XMMATRIX matTrans;
+	matTrans = XMMatrixTranslation(position.x, position.y, position.z);
+	matWorld *= matTrans;
+
+	//射影変換
+	XMMATRIX matProjection = XMMatrixOrthographicOffCenterLH(
+		0.0f, WinApp::widow_width,
+		WinApp::widow_height, 0.0f,
+		0.0f, 1.0f
+	);
+
+	constMapTransform->mat = matWorld * matProjection;
 }
 
 void Sprite::Draw()

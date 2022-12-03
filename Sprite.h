@@ -6,9 +6,6 @@
 //スプライト
 class Sprite
 {
-private:
-	const int window_width = 1280;
-	const int window_height = 720;
 public:
 	//定数バッファデータ構造体(マテリアル)
 	struct ConstBufferDataMaterial {
@@ -30,11 +27,16 @@ public://メンバ関数
 	//初期化
 	void Initialize(SpriteCommon* spriteCommon);
 
+	void Update();
+
 	void Draw();
 
 private:
 	//スプライト情報
 	DirectX::XMFLOAT4 color = { 1,0,0,0.5f };
+
+	float rotationZ;
+	DirectX::XMFLOAT3 position;
 
 	SpriteCommon* spriteCommon_;
 

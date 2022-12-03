@@ -53,6 +53,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 #pragma region 最初のシーンの更新
 
+        sprite->Update();
+
 #pragma endregion 最初のシーンの更新
 
         //描画前処理
