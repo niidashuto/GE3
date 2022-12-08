@@ -3,6 +3,7 @@
 #include "DirectXCommon.h"
 #include "SpriteCommon.h"
 #include "Sprite.h"
+#include"Object3d.h"
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -30,6 +31,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     spriteCommon->Initialize(dxCommon);
     spriteCommon->LoadTexture(0, "texture.png");
     spriteCommon->LoadTexture(1, "reimu.png");
+
+    Object3d::StaticInitialize(dxCommon->GetDevice(), WinApp::window_width, WinApp::window_height);
     
 #pragma endregion 基盤システムの初期化
 
@@ -38,6 +41,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     sprite = new Sprite();
     sprite->SetTextureIndex(0);
     sprite->Initialize(spriteCommon,0);
+    Object3d* object3d = Object3d::Create();
 #pragma endregion 最初のシーンを初期化
     
     // ゲームループ
@@ -57,6 +61,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 #pragma region 最初のシーンの更新
         
         sprite->Update();
+        object3d->Update();
 
 #pragma endregion 最初のシーンの更新
 
@@ -67,6 +72,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         spriteCommon->PreDraw();
         sprite->Draw();
         spriteCommon->PostDraw();
+        Object3d::PreDraw(dxCommon->GetCommandList());
+        object3d->Draw();
+        Object3d::PostDraw();
+
 #pragma endregion 最初のシーンの描画
 
         //描画後処理
@@ -84,6 +93,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     delete input;
     //DirectX解放
     delete dxCommon;
+
+    delete object3d;
     //WindowsAPIの終了処理
     winApp->Finalize();
     //WindowsAPI解放

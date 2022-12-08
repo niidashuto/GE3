@@ -186,8 +186,8 @@ void Sprite::Initialize(SpriteCommon* spriteCommon, uint32_t textureIndex)
 
 		//ŽË‰e•ÏŠ·
 		XMMATRIX matProjection = XMMatrixOrthographicOffCenterLH(
-			0.0f, WinApp::widow_width,
-			WinApp::widow_height, 0.0f,
+			0.0f, WinApp::window_width,
+			WinApp::window_height, 0.0f,
 			0.0f, 1.0f
 		);
 
@@ -272,8 +272,8 @@ void Sprite::Update()
 
 	//ŽË‰e•ÏŠ·
 	XMMATRIX matProjection = XMMatrixOrthographicOffCenterLH(
-		0.0f, WinApp::widow_width,
-		WinApp::widow_height, 0.0f,
+		0.0f, WinApp::window_width,
+		WinApp::window_height, 0.0f,
 		0.0f, 1.0f
 	);
 

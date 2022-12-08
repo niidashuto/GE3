@@ -95,8 +95,8 @@ void DirectXCommon::PreDraw()
     // ４．描画コマンドここから
     // ビューポート設定コマンド
     D3D12_VIEWPORT viewport{};
-    viewport.Width = winApp->widow_width;
-    viewport.Height = winApp->widow_height;
+    viewport.Width = winApp->window_width;
+    viewport.Height = winApp->window_height;
     viewport.TopLeftX = 0;
     viewport.TopLeftY = 0;
     viewport.MinDepth = 0.0f;
@@ -107,9 +107,9 @@ void DirectXCommon::PreDraw()
     // シザー矩形
     D3D12_RECT scissorRect{};
     scissorRect.left = 0;                                       // 切り抜き座標左
-    scissorRect.right = scissorRect.left + winApp->widow_width;        // 切り抜き座標右
+    scissorRect.right = scissorRect.left + winApp->window_width;        // 切り抜き座標右
     scissorRect.top = 0;                                        // 切り抜き座標上
-    scissorRect.bottom = scissorRect.top + winApp->widow_height;       // 切り抜き座標下
+    scissorRect.bottom = scissorRect.top + winApp->window_height;       // 切り抜き座標下
     // シザー矩形設定コマンドを、コマンドリストに積む
     commandList->RSSetScissorRects(1, &scissorRect);
 }
@@ -333,8 +333,8 @@ void DirectXCommon::InitializeDepthBuffer()
     // リソース設定
     D3D12_RESOURCE_DESC depthResourceDesc{};
     depthResourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
-    depthResourceDesc.Width = WinApp::widow_width; // レンダーターゲットに合わせる
-    depthResourceDesc.Height = WinApp::widow_height; // レンダーターゲットに合わせる
+    depthResourceDesc.Width = WinApp::window_width; // レンダーターゲットに合わせる
+    depthResourceDesc.Height = WinApp::window_height; // レンダーターゲットに合わせる
     depthResourceDesc.DepthOrArraySize = 1;
     depthResourceDesc.Format = DXGI_FORMAT_D32_FLOAT; // 深度値フォーマット
     depthResourceDesc.SampleDesc.Count = 1;
