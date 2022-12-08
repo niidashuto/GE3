@@ -21,8 +21,9 @@ public://ƒƒ“ƒoŠÖ”
 	void PreDraw();
 	//•`‰æŒãˆ—
 	void PostDraw();
-
+	//getter
 	DirectXCommon* GetDirectXCommon() { return dxCommon_; }
+	ID3D12Resource* GetTextureBuffer(uint32_t index)const { return texBuff[index].Get(); }
 
 private://Ã“Iƒƒ“ƒo•Ï”
 	//SRV‚ÌÅ‘åŒÂ”
