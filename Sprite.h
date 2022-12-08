@@ -48,6 +48,8 @@ public:
 	void SetIsFlipX(const bool& isFlipX) { isFlipX_ = isFlipX; }
 	void SetIsFlipY(const bool& isFlipY) { isFlipY_ = isFlipY; }
 	void SetIsInvisible(const bool& isInvisible) { isInvisible_ = isInvisible; }
+	void SetTextureIndex(uint32_t index) { this->textureIndex_ = index; }
+
 	//getter
 	const DirectX::XMFLOAT2& GetPosition() const { return position_; }
 	float GetRotation() const { return rotationZ; }
@@ -57,6 +59,7 @@ public:
 	const bool GetIsFlipX()const { return isFlipX_; }
 	const bool GetIsFlipY()const { return isFlipY_; }
 	const bool GetIsInvisible()const { return isInvisible_; }
+	const uint32_t GetTextureIndex()const { return textureIndex_; }
 
 private:
 	//スプライト情報
@@ -69,6 +72,9 @@ private:
 
 	//アンカーポイント
 	DirectX::XMFLOAT2 anchorPoint_ = { 0.0f,0.0f };
+
+	//テクスチャ番号
+	uint32_t textureIndex_ = 0;
 
 	//左右フリップ
 	bool isFlipX_ = false;
