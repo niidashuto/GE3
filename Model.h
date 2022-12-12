@@ -37,11 +37,21 @@ public:
 		XMFLOAT2 uv;  // uv座標
 	};
 
+	// 定数バッファ用データ構造体B1
+	struct ConstBufferDataB1
+	{
+		XMFLOAT3 ambient;//アンビエント係数
+		float pad1;      //パディング
+		XMFLOAT3 diffuse;//ディフューズ係数
+		float pad2;      //パディング
+		XMFLOAT3 specular;//スペキュラー係数
+		float alpha;     //アルファ
+	};
+
 public://静的メンバ関数
 	//OBJファイルから3Dモデルを読み込む
 	static Model* LoadFromOBJ();
 
-private:
 	/// <summary>
 	/// マテリアル読み込み
 	/// </summary>
@@ -51,6 +61,11 @@ private:
 	/// テクスチャ読み込み
 	/// </summary>
 	void LoadTexture(const std::string& directoryPath, const std::string& filename);
+
+	/// <summary>
+	/// 描画
+	/// </summary>
+	void Draw(ID3D12GraphicsCommandList* cmdList,UINT rootParamIndexMaterial);
 
 	/// <summary>
 	/// デスクリプタヒープの初期化
@@ -91,6 +106,11 @@ private://メンバ変数
 	D3D12_VERTEX_BUFFER_VIEW vbView;
 	// インデックスバッファビュー
 	D3D12_INDEX_BUFFER_VIEW ibView;
+	// 定数バッファ
+	Microsoft::WRL::ComPtr<ID3D12Resource> constBuffB1;
+
+	CD3DX12_RESOURCE_DESC resourceDesc1 = CD3DX12_RESOURCE_DESC::Buffer((sizeof(ConstBufferDataB1) + 0xff) & ~0xff);
+	
 private://静的メンバ変数
 	//デバイス
 	static ID3D12Device* device;

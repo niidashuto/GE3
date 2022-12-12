@@ -352,4 +352,45 @@ void Model::CreateBuffers()
 	ibView.Format = DXGI_FORMAT_R16_UINT;
 	//ibView.SizeInBytes = sizeof(indices);
 	ibView.SizeInBytes = sizeIB;
+
+	// 定数バッファの生成
+	result = device->CreateCommittedResource(
+		&heapProps,
+		D3D12_HEAP_FLAG_NONE,
+		&resourceDesc1,
+		D3D12_RESOURCE_STATE_GENERIC_READ,
+		nullptr,
+		IID_PPV_ARGS(&constBuffB1));
+	assert(SUCCEEDED(result));
+
+	// 定数バッファへデータ転送
+	ConstBufferDataB1* constMap1 = nullptr;
+	result = constBuffB1->Map(0, nullptr, (void**)&constMap1);
+	constMap1->ambient = material.ambient;
+	constMap1->diffuse = material.diffuse;
+	constMap1->specular = material.specular;
+	constMap1->alpha = material.alpha;
+	constBuffB1->Unmap(0, nullptr);
+}
+
+void Model::Draw(ID3D12GraphicsCommandList* cmdList, UINT rootParamIndexMaterial)
+{
+	
+
+	// 頂点バッファの設定
+	cmdList->IASetVertexBuffers(0, 1, &vbView);
+	// インデックスバッファの設定
+	cmdList->IASetIndexBuffer(&ibView);
+
+	cmdList->SetGraphicsRootConstantBufferView(rootParamIndexMaterial, constBuffB1->GetGPUVirtualAddress());
+
+	// デスクリプタヒープの配列
+	ID3D12DescriptorHeap* ppHeaps[] = { descHeap.Get() };
+	cmdList->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps);
+
+	// シェーダリソースビューをセット
+	cmdList->SetGraphicsRootDescriptorTable(2, gpuDescHandleSRV);
+
+	cmdList->DrawIndexedInstanced((UINT)indices.size(), 1, 0, 0, 0);
+
 }
