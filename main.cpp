@@ -20,7 +20,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     //DirectXの初期化
     dxCommon = new DirectXCommon();
     dxCommon->Initialize(winApp);
-
+    
     Input* input = nullptr;
     //入力の初期化
     input = new Input();
@@ -34,16 +34,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     spriteCommon->LoadTexture(1, "reimu.png");
 
     Object3d::StaticInitialize(dxCommon->GetDevice(), WinApp::window_width, WinApp::window_height);
-
+    
 #pragma endregion 基盤システムの初期化
 
 #pragma region 最初のシーンを初期化
     Sprite* sprite = nullptr;
     sprite = new Sprite();
     sprite->SetTextureIndex(0);
-    sprite->Initialize(spriteCommon, 0);
+    sprite->Initialize(spriteCommon,0);
     //OBJからモデルデータを読み込む
-    Model* model_1 = Model::LoadFromOBJ("sphere");
+    Model* model_1 = Model::LoadFromOBJ("sphere1");
     Model* model_2 = Model::LoadFromOBJ("triangle_mat");
     //3Dオブジェクト生成
     Object3d* object3d_1 = Object3d::Create();
@@ -61,12 +61,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     object3d_2->SetScale({ 10.0f,10.0f,10.0f });
     object3d_3->SetScale({ 10.0f,10.0f,10.0f });
 #pragma endregion 最初のシーンを初期化
-
+    
     // ゲームループ
     while (true) {
 
 #pragma region 基盤システムの更新
-
+       
         //Windowsのメッセージ処理
         if (winApp->ProcessMessage()) {
             //ゲームループを抜ける
@@ -77,7 +77,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 #pragma endregion 基盤システムの更新
 
 #pragma region 最初のシーンの更新
-
+        
         sprite->Update();
 
         object3d_1->Update();
