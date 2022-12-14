@@ -17,7 +17,7 @@ Model* Model::LoadFromOBJ(const std::string& modelname)
 
 	//デスクリプタヒープの生成
 	model->InitializeDescriptorHeap();
-	
+
 	//読み込み
 	model->LoadFromOBJInternal(modelname);
 
@@ -264,7 +264,7 @@ void Model::LoadTexture(const std::string& directoryPath, const std::string& fil
 		&srvDesc, //テクスチャ設定情報
 		cpuDescHandleSRV
 	);
-	
+
 }
 
 void Model::InitializeDescriptorHeap()
@@ -375,7 +375,7 @@ void Model::CreateBuffers()
 
 void Model::Draw(ID3D12GraphicsCommandList* cmdList, UINT rootParamIndexMaterial)
 {
-	
+
 
 	// 頂点バッファの設定
 	cmdList->IASetVertexBuffers(0, 1, &vbView);

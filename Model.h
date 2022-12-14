@@ -65,7 +65,7 @@ public://静的メンバ関数
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw(ID3D12GraphicsCommandList* cmdList,UINT rootParamIndexMaterial);
+	void Draw(ID3D12GraphicsCommandList* cmdList, UINT rootParamIndexMaterial);
 
 	/// <summary>
 	/// デスクリプタヒープの初期化
@@ -110,7 +110,7 @@ private://メンバ変数
 	Microsoft::WRL::ComPtr<ID3D12Resource> constBuffB1;
 
 	CD3DX12_RESOURCE_DESC resourceDesc1 = CD3DX12_RESOURCE_DESC::Buffer((sizeof(ConstBufferDataB1) + 0xff) & ~0xff);
-	
+
 private://静的メンバ変数
 	//デバイス
 	static ID3D12Device* device;

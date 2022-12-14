@@ -311,10 +311,10 @@ void Object3d::InitializeGraphicsPipeline()
 
 void Object3d::CreateModel()
 {
-	
-	
 
-	
+
+
+
 }
 
 void Object3d::UpdateViewMatrix()
@@ -332,8 +332,8 @@ bool Object3d::Initialize()
 	CD3DX12_HEAP_PROPERTIES heapProps = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
 	// リソース設定
 	CD3DX12_RESOURCE_DESC resourceDesc0 = CD3DX12_RESOURCE_DESC::Buffer((sizeof(ConstBufferDataB0) + 0xff) & ~0xff);
-		
-	
+
+
 	HRESULT result;
 
 	// 定数バッファの生成
@@ -345,7 +345,7 @@ bool Object3d::Initialize()
 
 
 
-	
+
 
 	return true;
 
@@ -382,7 +382,7 @@ void Object3d::Update()
 	constMap->mat = matWorld * matView * matProjection;	// 行列の合成
 	constBuffB0->Unmap(0, nullptr);
 
-	
+
 }
 
 void Object3d::Draw()
@@ -396,11 +396,11 @@ void Object3d::Draw()
 
 	// 定数バッファビューをセット
 	cmdList->SetGraphicsRootConstantBufferView(0, constBuffB0->GetGPUVirtualAddress());
-	
-	
+
+
 	// 描画コマンド
 	//cmdList->DrawIndexedInstanced(_countof(indices), 1, 0, 0, 0);
-	
+
 	model->Draw(cmdList, 1);
 
 }

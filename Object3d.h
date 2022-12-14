@@ -22,7 +22,7 @@ private: // エイリアス
 	using XMMATRIX = DirectX::XMMATRIX;
 
 public: // サブクラス
-	
+
 
 	// 定数バッファ用データ構造体B0
 	struct ConstBufferDataB0
@@ -30,8 +30,8 @@ public: // サブクラス
 		//XMFLOAT4 color;	// 色 (RGBA)
 		XMMATRIX mat;	// ３Ｄ変換行列
 	};
-	
-	
+
+
 
 private: // 定数
 	static const int division = 50;					// 分割数
@@ -99,14 +99,14 @@ public: // 静的メンバ関数
 private: // 静的メンバ変数
 	// デバイス
 	static ID3D12Device* device;
-	
+
 	// コマンドリスト
 	static ID3D12GraphicsCommandList* cmdList;
 	// ルートシグネチャ
 	static ComPtr<ID3D12RootSignature> rootsignature;
 	// パイプラインステートオブジェクト
 	static ComPtr<ID3D12PipelineState> pipelinestate;
-	
+
 	// ビュー行列
 	static XMMATRIX matView;
 	// 射影行列
@@ -117,27 +117,25 @@ private: // 静的メンバ変数
 	static XMFLOAT3 target;
 	// 上方向ベクトル
 	static XMFLOAT3 up;
-	
+
 	// 頂点データ配列
 	//static VertexPosNormalUv vertices[vertexCount];
-	
+
 
 	/*
 		vector 配列の強化版	動的メモリ確保 実行中にメモリ変わる
 		配列					静的メモリ確保 実行する前にメモリ決まってる
 		配列は宣言時に要素数きめる、そのあと要素数増やしたり減らしたりできない
 		vectorはあとから要素数を増やせる(メモリを削除する仕様で作ってない
-
 		配列からvectorに変えた理由 : 配列だと読み込める頂点数に限りがあるのと確保したメモリが無駄になるから
-
 	*/
 
-	
-	
+
+
 
 
 private:// 静的メンバ関数
-	
+
 
 	/// <summary>
 	/// カメラ初期化
@@ -152,7 +150,7 @@ private:// 静的メンバ関数
 	/// <returns>成否</returns>
 	static void InitializeGraphicsPipeline();
 
-	
+
 
 	/// <summary>
 	/// モデル作成
@@ -188,7 +186,7 @@ public: // メンバ関数
 	/// <param name="position">座標</param>
 	void SetPosition(const XMFLOAT3& position) { this->position = position; }
 
-	
+
 	void SetModel(Model* model) { this->model = model; }
 
 	void SetScale(const XMFLOAT3& scale) { this->scale = scale; }
@@ -196,7 +194,7 @@ public: // メンバ関数
 private: // メンバ変数
 	//ComPtr<ID3D12Resource> constBuff; // 定数バッファ
 	ComPtr<ID3D12Resource> constBuffB0; // 定数バッファ
-	
+
 	// 色
 	XMFLOAT4 color = { 1,1,1,1 };
 	// ローカルスケール
@@ -212,4 +210,3 @@ private: // メンバ変数
 	//モデル
 	Model* model = nullptr;
 };
-
