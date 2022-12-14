@@ -43,7 +43,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     sprite->SetTextureIndex(0);
     sprite->Initialize(spriteCommon,0);
     //OBJからモデルデータを読み込む
-    Model* model_1 = Model::LoadFromOBJ("sphere1");
+    Model* model_1 = Model::LoadFromOBJ("ground");
     Model* model_2 = Model::LoadFromOBJ("triangle_mat");
     //3Dオブジェクト生成
     Object3d* object3d_1 = Object3d::Create();
@@ -57,6 +57,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     object3d_2->SetPosition({ -5,0,-5 });
     object3d_3->SetPosition({ +5,0,+5 });
     //3Dオブジェクトのスケールを指定
+    object3d_1->SetPosition({ 0,-50,0 });
     object3d_1->SetScale({ 10.0f,10.0f,10.0f });
     object3d_2->SetScale({ 10.0f,10.0f,10.0f });
     object3d_3->SetScale({ 10.0f,10.0f,10.0f });
