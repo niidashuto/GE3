@@ -97,15 +97,15 @@ private://メンバ変数
 	// デスクリプタヒープ
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> descHeap;
 	// デスクリプタサイズ
-	UINT descriptorHandleIncrementSize;
+	UINT descriptorHandleIncrementSize{};
 	// 頂点バッファ
 	Microsoft::WRL::ComPtr<ID3D12Resource> vertBuff;
 	// インデックスバッファ
 	Microsoft::WRL::ComPtr<ID3D12Resource> indexBuff;
 	// 頂点バッファビュー
-	D3D12_VERTEX_BUFFER_VIEW vbView;
+	D3D12_VERTEX_BUFFER_VIEW vbView{};
 	// インデックスバッファビュー
-	D3D12_INDEX_BUFFER_VIEW ibView;
+	D3D12_INDEX_BUFFER_VIEW ibView{};
 	// 定数バッファ
 	Microsoft::WRL::ComPtr<ID3D12Resource> constBuffB1;
 
