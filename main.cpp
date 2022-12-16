@@ -5,6 +5,7 @@
 #include "Sprite.h"
 #include"Object3d.h"
 #include"Model.h"
+#include "ImGuiManager.h"
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -34,10 +35,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     spriteCommon->LoadTexture(1, "reimu.png");
 
     Object3d::StaticInitialize(dxCommon->GetDevice(), WinApp::window_width, WinApp::window_height);
+
+    
     
 #pragma endregion 基盤システムの初期化
 
 #pragma region 最初のシーンを初期化
+
+    ImGuiManager* imGui = nullptr;
+    imGui = new ImGuiManager();
+    imGui->Initialize(dxCommon);
+
     Sprite* sprite = nullptr;
     sprite = new Sprite();
     sprite->SetTextureIndex(0);
@@ -68,6 +76,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 #pragma region 基盤システムの更新
        
+        
         //Windowsのメッセージ処理
         if (winApp->ProcessMessage()) {
             //ゲームループを抜ける
@@ -78,12 +87,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 #pragma endregion 基盤システムの更新
 
 #pragma region 最初のシーンの更新
+
+        
         
         sprite->Update();
 
         object3d_1->Update();
         object3d_2->Update();
         object3d_3->Update();
+
+        imGui->Begin();
+
+        imGui->End();
+        
 
 #pragma endregion 最初のシーンの更新
 
@@ -100,6 +116,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         object3d_3->Draw();
         Object3d::PostDraw();
 
+        imGui->Draw();
 #pragma endregion 最初のシーンの描画
 
         //描画後処理
@@ -108,6 +125,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     }
 #pragma region 最初のシーンの終了
     delete sprite;
+    imGui->Finalize();
+    delete imGui;
+    
 #pragma endregion 最初のシーンの終了
 
 #pragma region 基盤システムの終了
@@ -124,6 +144,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     delete model_1;
     delete model_2;
+
+    
+    
     //WindowsAPIの終了処理
     winApp->Finalize();
     //WindowsAPI解放

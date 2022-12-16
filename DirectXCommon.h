@@ -20,6 +20,7 @@ public://メンバ関数
 	//Getter
 	ID3D12Device* GetDevice() const { return device.Get(); }
 	ID3D12GraphicsCommandList* GetCommandList() const { return commandList.Get(); }
+	size_t GetBackBufferCount()const { return backBuffers.size(); }
 
 private://メンバ関数
 	//デバイスの初期化
