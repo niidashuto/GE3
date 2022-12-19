@@ -5,7 +5,7 @@
 
 
 
-void ImGuiManager::Initialize(DirectXCommon* dxCommon)
+void ImGuiManager::Initialize(WinApp* winApp,DirectXCommon* dxCommon)
 {
 	assert(dxCommon);
 	dxCommon_ = dxCommon;
@@ -14,6 +14,8 @@ void ImGuiManager::Initialize(DirectXCommon* dxCommon)
 	ImGui::CreateContext();
 	//ImGuiのスタイルを設定
 	ImGui::StyleColorsDark();
+
+	ImGui_ImplWin32_Init(winApp->GetHwnd());
 
 	//デスクリプタヒープ設定
 	D3D12_DESCRIPTOR_HEAP_DESC desc = {};
@@ -42,7 +44,7 @@ void ImGuiManager::Finalize()
 {
 	//後始末
 	ImGui_ImplDX12_Shutdown();
-	//ImGui_ImplWin32_Shutdown();
+	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
 
 	//デスクリプタヒープを解放
@@ -53,7 +55,7 @@ void ImGuiManager::Begin()
 {
 	//ImGuiフレーム開始
 	ImGui_ImplDX12_NewFrame();
-	//ImGui_ImplWin32_NewFrame();
+	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 }
 

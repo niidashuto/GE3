@@ -44,7 +44,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     ImGuiManager* imGui = nullptr;
     imGui = new ImGuiManager();
-    imGui->Initialize(dxCommon);
+    imGui->Initialize(winApp,dxCommon);
 
     Sprite* sprite = nullptr;
     sprite = new Sprite();

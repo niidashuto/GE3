@@ -1,9 +1,15 @@
 #include "WinApp.h"
 #pragma comment(lib,"winmm.lib")
+#include "imgui/imgui_impl_win32.h"
+
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 //ウィンドウプロシージャ
 LRESULT WinApp::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
+    //ImGui用ウィンドウプロシージャ呼び出し
+    if (ImGui_ImplWin32_WndProcHandler(hwnd, msg, wparam, lparam))
+        return true;
     //メッセージで分岐
     switch (msg)
     {
