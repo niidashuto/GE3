@@ -6,6 +6,7 @@
 #include"Object3d.h"
 #include"Model.h"
 #include "ImGuiManager.h"
+#include "imgui/imgui.h"
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -97,6 +98,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         object3d_3->Update();
 
         imGui->Begin();
+        ImGui::ShowDemoWindow();
 
         imGui->End();
         
