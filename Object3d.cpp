@@ -131,7 +131,6 @@ void Object3d::CameraMoveVector(XMFLOAT3 move)
 }
 
 
-
 void Object3d::InitializeCamera(int window_width, int window_height)
 {
 	// ビュー行列の生成

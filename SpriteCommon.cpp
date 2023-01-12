@@ -36,9 +36,9 @@ void SpriteCommon::Initialize(DirectXCommon* dxCommon)
 	
 
 
-	ComPtr<ID3DBlob> vsBlob ;//頂点シェーダオブジェクト
-	ComPtr<ID3DBlob> psBlob;//ピクセルシェーダーオブジェクト
-	ComPtr<ID3DBlob> errorBlob;//エラーオブジェクト
+	ID3DBlob* vsBlob ;//頂点シェーダオブジェクト
+	ID3DBlob* psBlob;//ピクセルシェーダーオブジェクト
+	ID3DBlob* errorBlob;//エラーオブジェクト
 
 	//頂点シェーダの読み込みとコンパイル
 	result = D3DCompileFromFile(
