@@ -90,7 +90,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 #pragma region 最初のシーンの更新
 
         
-        
         sprite->Update();
 
         object3d_1->Update();
@@ -98,7 +97,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         object3d_3->Update();
 
         imGui->Begin();
-        ImGui::ShowDemoWindow();
+        //ImGui::ShowDemoWindow();
 
         imGui->End();
         
@@ -147,7 +146,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     delete model_1;
     delete model_2;
 
-    
     
     //WindowsAPIの終了処理
     winApp->Finalize();
