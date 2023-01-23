@@ -23,6 +23,9 @@ public:
 	void Update();
 	//描画
 	void Draw();
+
+	//終了フラグのチェック
+	bool IsEndRequest() { return endRequest_; }
 private:
 
 	WinApp* winApp = nullptr;
@@ -39,12 +42,16 @@ private:
 
 	Sprite* sprite = nullptr;
 
-	//OBJからモデルデータを読み込む
-	Model* model_1 = Model::LoadFromOBJ("ground");
-	Model* model_2 = Model::LoadFromOBJ("triangle_mat");
+	Model* model_1 = nullptr;
+	Model* model_2 = nullptr;
+
 	//3Dオブジェクト生成
-	Object3d* object3d_1 = Object3d::Create();
-	Object3d* object3d_2 = Object3d::Create();
-	Object3d* object3d_3 = Object3d::Create();
+	Object3d* object3d_1 = nullptr;
+	Object3d* object3d_2 = nullptr;
+	Object3d* object3d_3 = nullptr;
+
+	//ゲーム終了フラグ
+	bool endRequest_ = false;
+
 };
 

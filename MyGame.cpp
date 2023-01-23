@@ -50,6 +50,13 @@ void MyGame::Initialize()
     sprite = new Sprite();
     sprite->SetTextureIndex(0);
     sprite->Initialize(spriteCommon, 0);
+
+    model_1 = Model::LoadFromOBJ("ground");
+    model_2 = Model::LoadFromOBJ("triangle_mat");
+
+    object3d_1 = Object3d::Create();
+    object3d_2 = Object3d::Create();
+    object3d_3 = Object3d::Create();
     
     //3Dオブジェクトと3Dモデルをひも付け
     object3d_1->SetModel(model_1);
@@ -108,8 +115,7 @@ void MyGame::Update()
 
     //Windowsのメッセージ処理
     if (winApp->ProcessMessage()) {
-        //ゲームループを抜ける
-        break;
+        endRequest_ = true;
     }
 
     input->Update();
