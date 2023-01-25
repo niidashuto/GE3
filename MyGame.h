@@ -12,17 +12,19 @@
 #include "Audio.h"
 #include <fstream>
 #include <wrl.h>
-class MyGame
+#include "SNFramework.h"
+
+class MyGame : public SNFramework
 {
 public:
 	//初期化
-	void Initialize();
+	void Initialize() override;
 	//終了
-	void Finalize();
+	void Finalize() override;
 	//毎フレーム処理
-	void Update();
+	void Update() override;
 	//描画
-	void Draw();
+	void Draw() override;
 
 	//終了フラグのチェック
 	bool IsEndRequest() { return endRequest_; }

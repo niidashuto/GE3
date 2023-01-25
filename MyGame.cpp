@@ -1,5 +1,6 @@
 #include "MyGame.h"
 
+
 void MyGame::Initialize()
 {
 #pragma region Šî”ÕƒVƒXƒeƒ€‚Ì‰Šú‰»
