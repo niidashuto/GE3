@@ -44,3 +44,33 @@ Quaternion operator*(const Quaternion& q1, const Quaternion& q2)
 Quaternion Identity() { return Quaternion(1, 0, 0, 0); }
 
 Quaternion Conjugate(const Quaternion& q) { return Quaternion(q.w, -q.GetImaginary()); }
+
+Quaternion MakeAxisAngle(const Vector3& axis, float angle)
+{
+	return Quaternion(cosf(angle / 2.0f), axis * sinf(angle / 2.0f));
+}
+
+Vector3 RotateVector(const Vector3& v, const Quaternion& q)
+{
+	Quaternion r = { 0,v };
+	return Quaternion(q * r * Conjugate(q)).GetImaginary();
+}
+
+Matrix4 Quaternion::MakeRotateMatrix() const
+{
+	Matrix4 mat =
+	{
+		w * w + x * x - y * y - z * z, 2 * (x * y + w * z), 2 * (x * z - w * y), 0,
+		2 * (x * y - w * z), w * w - x * x + y * y - z * z, 2 * (y * z - w * x), 0,
+		2 * (x * z + w * y), 2 * (y * z + w * x), w * w - x * x - y * y + z * z, 0,
+		0,0,0,1
+	};
+
+	return mat;
+}
+
+Matrix4 MakeRotateMatrix(const Quaternion& q)
+{
+	return q.MakeRotateMatrix();
+}
+

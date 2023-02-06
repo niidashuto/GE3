@@ -102,6 +102,11 @@ void MyGame::Update()
     Quaternion mul1 = q1 * q2;
     Quaternion mul2 = q2 * q1;
     float norm = Norm(q1);
+    Quaternion rotation = MakeAxisAngle({ 0.0f,0.0f,1.0f }, 3.141592f / 2.0f);
+    Vector3 pointY = { 0.0f,1.0f,0.0f };
+    Matrix4 rotateMatrix = MakeRotateMatrix(rotation);
+    Vector3 rotateByQuaternion = RotateVector(pointY, rotation);
+    
 
     sprite->Update();
 
@@ -112,12 +117,8 @@ void MyGame::Update()
     imGui->Begin();
 
     //ImGui::ShowDemoWindow();
-    ImGui::Text("%.2f,%.2f,%.2f,%.2f", conj.x, conj.y, conj.z, conj.w);
-    ImGui::Text("%.2f,%.2f,%.2f,%.2f", inv.x, inv.y, inv.z, inv.w);
-    ImGui::Text("%.2f,%.2f,%.2f,%.2f", normal.x, normal.y, normal.z, normal.w);
-    ImGui::Text("%.2f,%.2f,%.2f,%.2f", mul1.x, mul1.y, mul1.z, mul1.w);
-    ImGui::Text("%.2f,%.2f,%.2f,%.2f", mul2.x, mul2.y, mul2.z, mul2.w);
-    ImGui::Text("%.2f", norm);
+    ImGui::Text("%.2f,%.2f,%.2f", rotateByQuaternion.x, rotateByQuaternion.y, rotateByQuaternion.z);
+    
 
     imGui->End();
 

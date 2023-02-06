@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector3.h"
+#include "Matrix4.h"
 
 class Quaternion
 {
@@ -17,7 +18,7 @@ public:
 
 	void operator*=(const Quaternion& q);
 
-	
+	Matrix4 MakeRotateMatrix() const;
 
 };
 
@@ -27,4 +28,9 @@ float Norm(const Quaternion& q);
 Quaternion Normalize(const Quaternion& q);
 Quaternion Inverse(const Quaternion& q);
 Quaternion operator*(const Quaternion& q1, const Quaternion& q2);
+Quaternion MakeAxisAngle(const Vector3& axis, float angle);
+Vector3 RotateVector(const Vector3& v, const Quaternion& q);
+Matrix4 MakeRotateMatrix(const Quaternion& q);
+
+
 
