@@ -2,14 +2,49 @@
 
 void SNFramework::Initialize()
 {
-}
+	//WindowsAPIの初期化
+	winApp = new WinApp();
+	winApp->Initialize();
 
-void SNFramework::Finalize()
-{
+	//DirectXの初期化
+	dxCommon = new DirectXCommon();
+	dxCommon->Initialize(winApp);
+
+	//スプライト共通部の初期化
+	spriteCommon = new SpriteCommon();
+	spriteCommon->Initialize(dxCommon);
+
+	//入力の初期化
+	input = new Input();
+	input->Initialize(winApp);
+
+	audio = new Audio();
+	audio->Initialize();
 }
 
 void SNFramework::Update()
 {
+	input->Update();
+}
+
+void SNFramework::Finalize()
+{
+	audio->Finalize();
+	winApp->Finalize();
+	
+}
+
+bool SNFramework::IsEndRequest()
+{
+	//Windowsのメッセージ処理
+	if (winApp->ProcessMessage()) {
+		return true;
+	}
+	if (input->TriggerKey(DIK_ESCAPE)) {
+		return true;
+	}
+
+	return false;
 }
 
 void SNFramework::Run()

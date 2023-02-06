@@ -1,5 +1,9 @@
 #pragma once
-
+#include "WinApp.h"
+#include "DirectXCommon.h"
+#include "SpriteCommon.h"
+#include "Input.h"
+#include "Audio.h"
 
 class SNFramework
 {
@@ -17,13 +21,23 @@ public://メンバ関数
 	virtual void Draw() = 0;
 
 	//終了チェック
-	virtual bool IsEndRequest() { return endRequest_; }
+	virtual bool IsEndRequest();
 
 	virtual ~SNFramework() = default;
 
 	//実行
 	void Run();
-private:
-	bool endRequest_ = false;
+
+protected:
+
+	WinApp* winApp = nullptr;
+
+	DirectXCommon* dxCommon = nullptr;
+
+	SpriteCommon* spriteCommon = nullptr;
+
+	Input* input = nullptr;
+
+	Audio* audio = nullptr;
 };
 
