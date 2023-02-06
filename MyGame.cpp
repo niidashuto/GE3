@@ -1,5 +1,5 @@
 #include "MyGame.h"
-
+#include "Quaternion.h"
 
 void MyGame::Initialize()
 {
@@ -16,7 +16,7 @@ void MyGame::Initialize()
     //音声読み込み
     audio->SoundLoadWave("Resources/fanfare.wav");
     //音声再生
-    audio->SoundPlayWave("Resources/fanfare.wav");
+    //audio->SoundPlayWave("Resources/fanfare.wav");
 
 #pragma endregion 基盤システムの初期化
 
@@ -93,6 +93,15 @@ void MyGame::Update()
 
 #pragma region 最初のシーンの更新
 
+    Quaternion q1 = { 2.0f,3.0f,4.0f,1.0f };
+    Quaternion q2 = { 1.0f,3.0f,5.0f,2.0f };
+    Quaternion identity = Identity();
+    Quaternion conj = Conjugate(q1);
+    Quaternion inv = Inverse(q1);
+    Quaternion normal = Normalize(q1);
+    Quaternion mul1 = q1 * q2;
+    Quaternion mul2 = q2 * q1;
+    float norm = Norm(q1);
 
     sprite->Update();
 
@@ -102,7 +111,13 @@ void MyGame::Update()
 
     imGui->Begin();
 
-    ImGui::ShowDemoWindow();
+    //ImGui::ShowDemoWindow();
+    ImGui::Text("%.2f,%.2f,%.2f,%.2f", conj.x, conj.y, conj.z, conj.w);
+    ImGui::Text("%.2f,%.2f,%.2f,%.2f", inv.x, inv.y, inv.z, inv.w);
+    ImGui::Text("%.2f,%.2f,%.2f,%.2f", normal.x, normal.y, normal.z, normal.w);
+    ImGui::Text("%.2f,%.2f,%.2f,%.2f", mul1.x, mul1.y, mul1.z, mul1.w);
+    ImGui::Text("%.2f,%.2f,%.2f,%.2f", mul2.x, mul2.y, mul2.z, mul2.w);
+    ImGui::Text("%.2f", norm);
 
     imGui->End();
 
