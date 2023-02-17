@@ -93,20 +93,15 @@ void MyGame::Update()
 
 #pragma region 最初のシーンの更新
 
-    Quaternion q1 = { 2.0f,3.0f,4.0f,1.0f };
-    Quaternion q2 = { 1.0f,3.0f,5.0f,2.0f };
-    Quaternion identity = Identity();
-    Quaternion conj = Conjugate(q1);
-    Quaternion inv = Inverse(q1);
-    Quaternion normal = Normalize(q1);
-    Quaternion mul1 = q1 * q2;
-    Quaternion mul2 = q2 * q1;
-    float norm = Norm(q1);
-    Quaternion rotation = MakeAxisAngle({ 0.0f,0.0f,1.0f }, 3.141592f / 2.0f);
-    Vector3 pointY = { 0.0f,1.0f,0.0f };
-    Matrix4 rotateMatrix = MakeRotateMatrix(rotation);
-    Vector3 rotateByQuaternion = RotateVector(pointY, rotation);
-    
+    Quaternion rotation0 = MakeAxisAngle({ 0.71f,0.71f,0.0f }, 0.3f);
+    Quaternion rotation1 = { -rotation0.x,-rotation0.y,-rotation0.z,-rotation0.w };
+
+    Quaternion interpolate0 = Slerp(rotation0, rotation1, 0.0f);
+    Quaternion interpolate1 = Slerp(rotation0, rotation1, 0.3f);
+    Quaternion interpolate2 = Slerp(rotation0, rotation1, 0.5f);
+    Quaternion interpolate3 = Slerp(rotation0, rotation1, 0.7f);
+    Quaternion interpolate4 = Slerp(rotation0, rotation1, 1.0f);
+
 
     sprite->Update();
 
@@ -117,8 +112,10 @@ void MyGame::Update()
     imGui->Begin();
 
     //ImGui::ShowDemoWindow();
-    ImGui::Text("%.2f,%.2f,%.2f", rotateByQuaternion.x, rotateByQuaternion.y, rotateByQuaternion.z);
-    
+    ImGui::Text("%.2f,%.2f,%.2f,%.2f", interpolate0.x, interpolate0.y, interpolate0.z, interpolate0.w);
+    ImGui::Text("%.2f,%.2f,%.2f,%.2f", interpolate1.x, interpolate1.y, interpolate1.z, interpolate1.w);
+    ImGui::Text("%.2f,%.2f,%.2f,%.2f", interpolate2.x, interpolate2.y, interpolate2.z, interpolate2.w);
+   
 
     imGui->End();
 
