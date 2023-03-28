@@ -7,6 +7,12 @@
 #pragma comment(lib,"dxgi.lib")
 
 using namespace Microsoft::WRL;
+
+DirectXCommon* DirectXCommon::GetInstance()
+{
+    static DirectXCommon ins;
+    return &ins;
+}
 //‰Šú‰»
 void DirectXCommon::Initialize(WinApp* winApp)
 {
