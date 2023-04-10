@@ -8,6 +8,7 @@
 #include <fstream>
 #include <wrl.h>
 #include "SNFramework.h"
+#include "Camera.h"
 
 class MyGame : public SNFramework
 {
@@ -34,7 +35,7 @@ private:
 	Object3d* object3d_2 = nullptr;
 	Object3d* object3d_3 = nullptr;
 
-	
+	Camera* camera_ = nullptr;
 
 };
 

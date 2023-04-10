@@ -22,7 +22,8 @@ void MyGame::Initialize()
 
 #pragma region 最初のシーンを初期化
 
-    
+    camera_ = new Camera();
+
     imGui = new ImGuiManager();
     imGui->Initialize(winApp, dxCommon);
 
@@ -50,6 +51,10 @@ void MyGame::Initialize()
     object3d_1->SetScale({ 10.0f,10.0f,10.0f });
     object3d_2->SetScale({ 10.0f,10.0f,10.0f });
     object3d_3->SetScale({ 10.0f,10.0f,10.0f });
+
+    object3d_1->SetCamera(camera_);
+    object3d_2->SetCamera(camera_);
+    object3d_3->SetCamera(camera_);
 #pragma endregion 最初のシーンを初期化
 }
 
