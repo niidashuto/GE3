@@ -18,6 +18,7 @@ void Input::Initialize(WinApp* winApp)
     // キーボードデバイスの生成
     
     result = directInput->CreateDevice(GUID_SysKeyboard, &keyboard, NULL);
+    assert(SUCCEEDED(result));
     // 入力データ形式のセット
     result = keyboard->SetDataFormat(&c_dfDIKeyboard); // 標準形式
     assert(SUCCEEDED(result));

@@ -31,9 +31,9 @@ public://メンバ関数
 
 private: //メンバ変数
 	//キーボードのデバイス
-	ComPtr<IDirectInputDevice8> keyboard;
+	ComPtr<IDirectInputDevice8> keyboard = nullptr;
 	//DirectInputのインスタンス
-	ComPtr<IDirectInput8> directInput;
+	ComPtr<IDirectInput8> directInput = nullptr;
 	//全キーの状態
 	BYTE key[256] = {};
 	//全キーの状態

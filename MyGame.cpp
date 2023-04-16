@@ -13,6 +13,8 @@ void MyGame::Initialize()
 
     Object3d::StaticInitialize(dxCommon->GetDevice(), WinApp::window_width, WinApp::window_height);
 
+    ParticleManager::StaticInitialize(dxCommon->GetDevice());
+
     //音声読み込み
     audio->SoundLoadWave("Resources/fanfare.wav");
     //音声再生
@@ -30,8 +32,13 @@ void MyGame::Initialize()
     
     sprite = new Sprite();
     sprite->SetTextureIndex(0);
-    sprite->Initialize(spriteCommon, 0);
+    sprite->Initialize(spriteCommon, 1);
 
+    sprite2 = new Sprite();
+    sprite2->SetTextureIndex(0);
+    sprite2->Initialize(spriteCommon, 0);
+
+    sprite2->SetPosition({ 800,0 });
     model_1 = Model::LoadFromOBJ("ground");
     model_2 = Model::LoadFromOBJ("triangle_mat");
 
@@ -55,6 +62,16 @@ void MyGame::Initialize()
     object3d_1->SetCamera(camera_);
     object3d_2->SetCamera(camera_);
     object3d_3->SetCamera(camera_);
+
+    particle1_ = Particle::LoadFromParticleTexture("particle.png");
+    pm1_ = ParticleManager::Create();
+    pm1_->SetParticleModel(particle1_);
+    pm1_->SetCamera(camera_);
+
+    particle2_ = Particle::LoadFromParticleTexture("particle6.png");
+    pm2_ = ParticleManager::Create();
+    pm2_->SetParticleModel(particle2_);
+    pm2_->SetCamera(camera_);
 #pragma endregion 最初のシーンを初期化
 }
 
@@ -98,31 +115,49 @@ void MyGame::Update()
 
 #pragma region 最初のシーンの更新
 
-    Quaternion q1 = { 2.0f,3.0f,4.0f,1.0f };
-    Quaternion q2 = { 1.0f,3.0f,5.0f,2.0f };
-    Quaternion identity = Identity();
-    Quaternion conj = Conjugate(q1);
-    Quaternion inv = Inverse(q1);
-    Quaternion normal = Normalize(q1);
-    Quaternion mul1 = q1 * q2;
-    Quaternion mul2 = q2 * q1;
-    float norm = Norm(q1);
-    Quaternion rotation = MakeAxisAngle({ 0.0f,0.0f,1.0f }, 3.141592f / 2.0f);
-    Vector3 pointY = { 0.0f,1.0f,0.0f };
-    Matrix4 rotateMatrix = MakeRotateMatrix(rotation);
-    Vector3 rotateByQuaternion = RotateVector(pointY, rotation);
-    
+    pm1_->Active(particle1_, 100.0f, 0.2f, 0.001f, 5, { 6.0f, 0.0f });
+    pm2_->Active(particle2_, 100.0f, 0.2f, 0.001f, 5, { 6.0f, 0.0f });
+    {
+        XMFLOAT3 cmove = camera_->GetEye();
+        float moveSpeed = 1.0f;
 
+        //キーボード入力による移動処理
+        XMMATRIX matTrans = XMMatrixIdentity();
+        if (input->Pushkey(DIK_LEFT)) {
+           
+            cmove.x -= moveSpeed;
+        }
+        if (input->Pushkey(DIK_RIGHT)) {
+            
+            cmove.x += moveSpeed;
+        }
+        if (input->Pushkey(DIK_UP)) {
+          
+            cmove.y += moveSpeed;
+        }
+        if (input->Pushkey(DIK_DOWN)) {
+           
+            cmove.y -= moveSpeed;
+        }
+
+        camera_->SetEye(cmove);
+    }
+
+    camera_->Update();
     sprite->Update();
+
+    sprite2->Update();
 
     object3d_1->Update();
     object3d_2->Update();
     object3d_3->Update();
+    pm1_->Update();
+    pm2_->Update();
 
     imGui->Begin();
 
     //ImGui::ShowDemoWindow();
-    ImGui::Text("%.2f,%.2f,%.2f", rotateByQuaternion.x, rotateByQuaternion.y, rotateByQuaternion.z);
+   
     
 
     imGui->End();
@@ -139,7 +174,13 @@ void MyGame::Draw()
 #pragma region 最初のシーンの描画
     spriteCommon->PreDraw();
     sprite->Draw();
+    sprite2->Draw();
     spriteCommon->PostDraw();
+    ParticleManager::PreDraw(dxCommon->GetCommandList());
+    pm1_->Draw();
+    pm2_->Draw();
+    ParticleManager::PostDraw();
+
     Object3d::PreDraw(dxCommon->GetCommandList());
     object3d_1->Draw();
     object3d_2->Draw();

@@ -152,6 +152,8 @@ void Camera::CameraMoveVectorEye(const XMFLOAT3& move)
 
 
 
+
+
 void Camera::SetEye(const XMFLOAT3& eye)
 {
 	this->eye_ = eye;

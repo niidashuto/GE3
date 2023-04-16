@@ -69,6 +69,12 @@
     <ClCompile Include="ViewProjection.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Sprite.hlsli">
@@ -76,6 +82,9 @@
     </None>
     <None Include="Basic.hlsli" />
     <None Include="..\..\AL4\DirectXGame\OBJShaderHeader.hlsli">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="Particle.hlsli">
       <Filter>リソース ファイル</Filter>
     </None>
   </ItemGroup>
@@ -90,6 +99,15 @@
       <Filter>リソース ファイル</Filter>
     </FxCompile>
     <FxCompile Include="..\..\AL4\DirectXGame\OBJVertexShader.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="ParticleGS.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="ParticlePS.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="ParticleVS.hlsl">
       <Filter>リソース ファイル</Filter>
     </FxCompile>
   </ItemGroup>
@@ -143,6 +161,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="ViewProjection.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
