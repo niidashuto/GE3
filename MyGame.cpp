@@ -173,18 +173,18 @@ void MyGame::Draw()
 
 #pragma region Å‰‚ÌƒV[ƒ“‚Ì•`‰æ
     spriteCommon->PreDraw();
-    sprite->Draw();
-    sprite2->Draw();
+    //sprite->Draw();
+    //sprite2->Draw();
     spriteCommon->PostDraw();
     ParticleManager::PreDraw(dxCommon->GetCommandList());
-    pm1_->Draw();
-    pm2_->Draw();
+    //pm1_->Draw();
+    //pm2_->Draw();
     ParticleManager::PostDraw();
 
     Object3d::PreDraw(dxCommon->GetCommandList());
-    object3d_1->Draw();
-    object3d_2->Draw();
-    object3d_3->Draw();
+    //object3d_1->Draw();
+    //object3d_2->Draw();
+    //object3d_3->Draw();
     Object3d::PostDraw();
 
     imGui->Draw();
