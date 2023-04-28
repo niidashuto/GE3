@@ -4,6 +4,7 @@
 #include "SpriteCommon.h"
 #include "Input.h"
 #include "Audio.h"
+#include "FbxLoader.h"
 
 class SNFramework
 {

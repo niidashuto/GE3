@@ -20,6 +20,8 @@ void SNFramework::Initialize()
 
 	audio = new Audio();
 	audio->Initialize();
+
+	FbxLoader::GetInstance()->Initialize(dxCommon->GetDevice());
 }
 
 void SNFramework::Update()
@@ -31,6 +33,7 @@ void SNFramework::Finalize()
 {
 	audio->Finalize();
 	winApp->Finalize();
+	FbxLoader::GetInstance()->Finalize();
 	
 }
 

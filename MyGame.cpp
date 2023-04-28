@@ -1,5 +1,6 @@
 #include "MyGame.h"
 #include "Quaternion.h"
+#include "FbxLoader.h"
 
 void MyGame::Initialize()
 {
@@ -72,6 +73,9 @@ void MyGame::Initialize()
     pm2_ = ParticleManager::Create();
     pm2_->SetParticleModel(particle2_);
     pm2_->SetCamera(camera_);
+
+    FbxLoader::GetInstance()->LoadModelFromFile("cube");
+
 #pragma endregion Å‰‚ÌƒV[ƒ“‚ğ‰Šú‰»
 }
 
