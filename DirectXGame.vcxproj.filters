@@ -81,6 +81,9 @@
     <ClCompile Include="FbxModel.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="FbxObject.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Sprite.hlsli">
@@ -92,6 +95,9 @@
     </None>
     <None Include="Particle.hlsli">
       <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="Resources\Shaders\FBX.hlsli">
+      <Filter>ソース ファイル</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +121,12 @@
     </FxCompile>
     <FxCompile Include="ParticleVS.hlsl">
       <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\FBXPS.hlsl">
+      <Filter>ソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\FBXVS.hlsl">
+      <Filter>ソース ファイル</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +191,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="FbxModel.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="FbxObject.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

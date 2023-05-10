@@ -1,5 +1,7 @@
 #include "FbxModel.h"
 
+ID3D12Device* FbxModel::device_ = nullptr;
+
 void FbxModel::CreateBuffers(ID3D12Device* device)
 {
 	HRESULT result;

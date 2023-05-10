@@ -1,6 +1,7 @@
 #include "MyGame.h"
 #include "Quaternion.h"
 #include "FbxLoader.h"
+#include "FbxObject.h"
 
 void MyGame::Initialize()
 {
@@ -20,6 +21,7 @@ void MyGame::Initialize()
     audio->SoundLoadWave("Resources/fanfare.wav");
     //音声再生
     //audio->SoundPlayWave("Resources/fanfare.wav");
+
 
 #pragma endregion 基盤システムの初期化
 
@@ -41,7 +43,7 @@ void MyGame::Initialize()
 
     sprite2->SetPosition({ 800,0 });
     model_1 = Model::LoadFromOBJ("ground");
-    model_2 = Model::LoadFromOBJ("triangle_mat");
+    model_2 = Model::LoadFromOBJ("ball");
 
     object3d_1 = Object3d::Create();
     object3d_2 = Object3d::Create();
@@ -75,6 +77,8 @@ void MyGame::Initialize()
     pm2_->SetCamera(camera_);
 
     FbxLoader::GetInstance()->LoadModelFromFile("cube");
+
+   
 
 #pragma endregion 最初のシーンを初期化
 }
@@ -187,7 +191,7 @@ void MyGame::Draw()
 
     Object3d::PreDraw(dxCommon->GetCommandList());
     //object3d_1->Draw();
-    //object3d_2->Draw();
+    object3d_2->Draw();
     //object3d_3->Draw();
     Object3d::PostDraw();
 

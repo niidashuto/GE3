@@ -96,6 +96,9 @@ private:
 	D3D12_INDEX_BUFFER_VIEW ibView = {};
 	//SRV用デスクリプタヒープ
 	ComPtr<ID3D12DescriptorHeap> descHeapSRV;
+	static ID3D12Device* device_;
+public://setter
+	static void SetDevice(ID3D12Device* device) { FbxModel::device_ = device; }
 
 };
 
