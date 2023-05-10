@@ -87,6 +87,9 @@
     <None Include="Particle.hlsli">
       <Filter>リソース ファイル</Filter>
     </None>
+    <None Include="OBJShaderHeader.hlsli">
+      <Filter>ソース ファイル</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\Shaders\SpritePS.hlsl">
@@ -109,6 +112,12 @@
     </FxCompile>
     <FxCompile Include="ParticleVS.hlsl">
       <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="OBJPixelShader.hlsl">
+      <Filter>ソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="OBJVertexShader.hlsl">
+      <Filter>ソース ファイル</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

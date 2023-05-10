@@ -40,7 +40,7 @@ void MyGame::Initialize()
 
     sprite2->SetPosition({ 800,0 });
     model_1 = Model::LoadFromOBJ("ground");
-    model_2 = Model::LoadFromOBJ("triangle_mat");
+    model_2 = Model::LoadFromOBJ("ball");
 
     object3d_1 = Object3d::Create();
     object3d_2 = Object3d::Create();
@@ -148,11 +148,11 @@ void MyGame::Update()
 
     sprite2->Update();
 
-    object3d_1->Update();
+    //object3d_1->Update();
     object3d_2->Update();
-    object3d_3->Update();
-    pm1_->Update();
-    pm2_->Update();
+    //object3d_3->Update();
+    //pm1_->Update();
+    //pm2_->Update();
 
     imGui->Begin();
 
@@ -173,18 +173,18 @@ void MyGame::Draw()
 
 #pragma region Å‰‚ÌƒV[ƒ“‚Ì•`‰æ
     spriteCommon->PreDraw();
-    sprite->Draw();
-    sprite2->Draw();
+    //sprite->Draw();
+   // sprite2->Draw();
     spriteCommon->PostDraw();
     ParticleManager::PreDraw(dxCommon->GetCommandList());
-    pm1_->Draw();
-    pm2_->Draw();
+   // pm1_->Draw();
+   // pm2_->Draw();
     ParticleManager::PostDraw();
 
     Object3d::PreDraw(dxCommon->GetCommandList());
-    object3d_1->Draw();
+    //object3d_1->Draw();
     object3d_2->Draw();
-    object3d_3->Draw();
+   // object3d_3->Draw();
     Object3d::PostDraw();
 
     imGui->Draw();
