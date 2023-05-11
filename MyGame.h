@@ -10,6 +10,7 @@
 #include "SNFramework.h"
 #include "Camera.h"
 #include "ParticleManager.h"
+#include "ObjectFBX.h"
 
 class MyGame : public SNFramework
 {
@@ -47,6 +48,11 @@ private:
 
 	ParticleManager* pm1_ = nullptr;
 	ParticleManager* pm2_ = nullptr;
+
+	FbxModel* model1 = nullptr;
+
+	ObjectFBX* object1 = nullptr;
+
 
 };
 

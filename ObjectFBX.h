@@ -10,7 +10,7 @@
 #include <DirectXMath.h>
 #include <string>
 
-class FbxObject
+class ObjectFBX
 {
 protected://エイリアス
 	//Microsoft::WRL::を省略
@@ -29,21 +29,44 @@ public:
 		XMMATRIX world;
 		XMFLOAT3 cameraPos;
 	};
-public://メンバ関数
+public://静的メンバ関数
 
 	void Initialize();
-	//setter
-	static void SetDevice(ID3D12Device* device) { FbxObject::device_ = device; }
 
-	static void SetCamera(Camera* camera) { FbxObject::camera_ = camera; }
+	void Update();
+
+	void Draw(ID3D12GraphicsCommandList* cmdList);
+
+	void SetModel(FbxModel* fbxModel) { this->fbxModel = fbxModel; }
+	//setter
+	static void SetDevice(ID3D12Device* device) { ObjectFBX::device = device; }
+
+	static void SetCamera(Camera* camera) { ObjectFBX::camera = camera; }
+
+	static void CreateGraphicsPipeline();
+
 protected:
 	ComPtr<ID3D12Resource> constBuffTransform;
 
+	XMFLOAT3 scale = { 1,1,1 };
+
+	XMFLOAT3 rotation = { 0,0,0 };
+
+	XMFLOAT3 position = { 0,0,0 };
+
+	XMMATRIX matWorld;
+
+	FbxModel* fbxModel = nullptr;
+
 private://静的メンバ変数
 	//デバイス
-	static ID3D12Device* device_;
+	static ID3D12Device* device;
 	//カメラ
-	static Camera* camera_;
+	static Camera* camera;
+
+	static ComPtr<ID3D12RootSignature> rootsignature;
+
+	static ComPtr<ID3D12PipelineState> pipelinestate;
 
 };
 

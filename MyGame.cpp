@@ -1,7 +1,7 @@
 #include "MyGame.h"
 #include "Quaternion.h"
 #include "FbxLoader.h"
-#include "FbxObject.h"
+#include "ObjectFBX.h"
 
 void MyGame::Initialize()
 {
@@ -14,6 +14,8 @@ void MyGame::Initialize()
     spriteCommon->LoadTexture(1, "reimu.png");
 
     Object3d::StaticInitialize(dxCommon->GetDevice(), WinApp::window_width, WinApp::window_height);
+
+    
 
     ParticleManager::StaticInitialize(dxCommon->GetDevice());
 
@@ -43,7 +45,7 @@ void MyGame::Initialize()
 
     sprite2->SetPosition({ 800,0 });
     model_1 = Model::LoadFromOBJ("ground");
-    model_2 = Model::LoadFromOBJ("ball");
+    //model_2 = Model::LoadFromOBJ("ball");
 
     object3d_1 = Object3d::Create();
     object3d_2 = Object3d::Create();
@@ -76,9 +78,19 @@ void MyGame::Initialize()
     pm2_->SetParticleModel(particle2_);
     pm2_->SetCamera(camera_);
 
-    FbxLoader::GetInstance()->LoadModelFromFile("cube");
+    model1 = FbxLoader::GetInstance()->LoadModelFromFile("cube");
 
-   
+    ObjectFBX::SetDevice(dxCommon->GetDevice());
+
+    ObjectFBX::SetCamera(camera_);
+
+    ObjectFBX::CreateGraphicsPipeline();
+
+    object1 = new ObjectFBX;
+    object1->Initialize();
+    object1->SetModel(model1);
+    camera_->SetTarget({ 0,20,0 });
+    
 
 #pragma endregion Å‰‚ÌƒV[ƒ“‚ð‰Šú‰»
 }
@@ -103,10 +115,11 @@ void MyGame::Finalize()
     delete object3d_1;
     delete object3d_2;
     delete object3d_3;
+    delete object1;
 
     delete model_1;
     delete model_2;
-
+    delete model1;
     
     SNFramework::Finalize();
     delete audio;
@@ -159,6 +172,9 @@ void MyGame::Update()
     object3d_1->Update();
     object3d_2->Update();
     object3d_3->Update();
+
+    object1->Update();
+
     pm1_->Update();
     pm2_->Update();
 
@@ -191,8 +207,11 @@ void MyGame::Draw()
 
     Object3d::PreDraw(dxCommon->GetCommandList());
     //object3d_1->Draw();
-    object3d_2->Draw();
+    //object3d_2->Draw();
     //object3d_3->Draw();
+
+    object1->Draw(dxCommon->GetCommandList());
+
     Object3d::PostDraw();
 
     imGui->Draw();

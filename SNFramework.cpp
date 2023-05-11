@@ -22,6 +22,7 @@ void SNFramework::Initialize()
 	audio->Initialize();
 
 	FbxLoader::GetInstance()->Initialize(dxCommon->GetDevice());
+
 }
 
 void SNFramework::Update()
