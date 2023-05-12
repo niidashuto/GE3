@@ -78,7 +78,7 @@ void MyGame::Initialize()
     pm2_->SetParticleModel(particle2_);
     pm2_->SetCamera(camera_);
 
-    model1 = FbxLoader::GetInstance()->LoadModelFromFile("cube");
+    model1 = FbxLoader::GetInstance()->LoadModelFromFile("boneTest");
 
     ObjectFBX::SetDevice(dxCommon->GetDevice());
 
@@ -90,6 +90,7 @@ void MyGame::Initialize()
     object1->Initialize();
     object1->SetModel(model1);
     camera_->SetTarget({ 0,20,0 });
+    //camera_->SetEye({ 0,0,0 });
     
 
 #pragma endregion Å‰‚ÌƒV[ƒ“‚ğ‰Šú‰»

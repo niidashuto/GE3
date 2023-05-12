@@ -22,12 +22,21 @@ protected://エイリアス
 	using XMFLOAT4 = DirectX::XMFLOAT4;
 	using XMMATRIX = DirectX::XMMATRIX;
 
+public://定数
+	//ボーンの最大数
+	static const int MAX_BONES = 32;
+
 public:
 	struct ConstBufferDataTransform
 	{
 		XMMATRIX viewproj;
 		XMMATRIX world;
 		XMFLOAT3 cameraPos;
+	};
+	//定数バッファ用データ構造体(スキニング)
+	struct ConstBufferDataSkin
+	{
+		XMMATRIX bones[MAX_BONES];
 	};
 public://静的メンバ関数
 
@@ -47,6 +56,8 @@ public://静的メンバ関数
 
 protected:
 	ComPtr<ID3D12Resource> constBuffTransform;
+
+	ComPtr<ID3D12Resource> constBuffSkin;
 
 	XMFLOAT3 scale = { 1,1,1 };
 

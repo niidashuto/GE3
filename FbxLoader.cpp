@@ -392,7 +392,7 @@ void FbxLoader::PaseSkin(FbxModel* fbxModel, FbxMesh* fbxMesh)
         weightList.sort(
             [](auto const& lhs, auto const& rhs) {
                 //左の要素の方が大きければtrue それでなければfalseを返す
-                return lhs.weight > rhl.weight; 
+                return lhs.weight > rhs.weight; 
             });
 
         int weightArrayIndex = 0;
