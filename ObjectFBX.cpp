@@ -39,7 +39,8 @@ void ObjectFBX::Initialize()
 		D3D12_HEAP_FLAG_NONE, &resourceDesc1, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr,
 		IID_PPV_ARGS(&constBuffSkin));
 	
-
+	//1フレーム分の時間を60FPSで設定
+	frameTime.SetTime(0, 0, 0, 1, 0, FbxTime::eFrames60);
 
 }
 
@@ -81,6 +82,18 @@ void ObjectFBX::Update()
 		constBuffTransform->Unmap(0, nullptr);
 	}
 
+	//アニメーション
+	if (isPlay)
+	{
+		//1フレーム進める
+		currentTime += frameTime;
+		//最後まで再生したら先頭に戻す
+		if (currentTime > endTime)
+		{
+			currentTime = startTime;
+		}
+	}
+
 	//ボーン配列
 	std::vector<FbxModel::Bone>& bones = fbxModel->GetBones();
 
@@ -93,13 +106,15 @@ void ObjectFBX::Update()
 		XMMATRIX matCurrentPose;
 		//今の姿勢行列を取得
 		FbxAMatrix fbxCurrentPose =
-			bones[i].fbxCluster->GetLink()->EvaluateGlobalTransform(0);
+			bones[i].fbxCluster->GetLink()->EvaluateGlobalTransform(currentTime);
 		//XMMATRIXに変換
 		FbxLoader::ConvertMatrixFromFbx(&matCurrentPose, fbxCurrentPose);
 		//合成してスキニング行列に
 		constMapSkin->bones[i] = bones[i].invInitialPose * matCurrentPose;
 	}
 	constBuffSkin->Unmap(0, nullptr);
+
+
 
 }
 
@@ -124,6 +139,26 @@ void ObjectFBX::Draw(ID3D12GraphicsCommandList* cmdList)
 	//モデル描画
 	fbxModel->Draw(cmdList);
 
+}
+
+void ObjectFBX::PlayAnimation()
+{
+	FbxScene* fbxScene = fbxModel->GetFbxScene();
+	//0番のアニメーション取得
+	FbxAnimStack* animStack = fbxScene->GetSrcObject<FbxAnimStack>(0);
+	//アニメーションの名前取得
+	const char* animStackName = animStack->GetName();
+	//アニメーションの時間情報
+	FbxTakeInfo* takeInfo = fbxScene->GetTakeInfo(animStackName);
+
+	//開始時間取得
+	startTime = takeInfo->mLocalTimeSpan.GetStart();
+	//終了時間取得
+	endTime = takeInfo->mLocalTimeSpan.GetStop();
+	//開始時間に合わせる
+	currentTime = startTime;
+	//再生中状態にする
+	isPlay = true;
 }
 
 void ObjectFBX::CreateGraphicsPipeline()

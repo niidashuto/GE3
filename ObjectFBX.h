@@ -47,6 +47,8 @@ public://静的メンバ関数
 	void Draw(ID3D12GraphicsCommandList* cmdList);
 
 	void SetModel(FbxModel* fbxModel) { this->fbxModel = fbxModel; }
+
+	void PlayAnimation();
 	//setter
 	static void SetDevice(ID3D12Device* device) { ObjectFBX::device = device; }
 
@@ -68,6 +70,16 @@ protected:
 	XMMATRIX matWorld;
 
 	FbxModel* fbxModel = nullptr;
+	//1フレームの時間
+	FbxTime frameTime;
+	//アニメーション開始時間
+	FbxTime startTime;
+	//アニメーション終了時間
+	FbxTime endTime;
+	//現在時間(アニメーション)
+	FbxTime currentTime;
+	//アニメーション再生中
+	bool isPlay = false;
 
 private://静的メンバ変数
 	//デバイス

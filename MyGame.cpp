@@ -89,9 +89,9 @@ void MyGame::Initialize()
     object1 = new ObjectFBX;
     object1->Initialize();
     object1->SetModel(model1);
-    camera_->SetTarget({ 0,20,0 });
+    camera_->SetTarget({ 0,0,-1 });
     //camera_->SetEye({ 0,0,0 });
-    
+    object1->PlayAnimation();
 
 #pragma endregion Å‰‚ÌƒV[ƒ“‚ð‰Šú‰»
 }
@@ -174,7 +174,10 @@ void MyGame::Update()
     object3d_2->Update();
     object3d_3->Update();
 
+    
+
     object1->Update();
+    
 
     pm1_->Update();
     pm2_->Update();
