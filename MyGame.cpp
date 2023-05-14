@@ -89,7 +89,7 @@ void MyGame::Initialize()
     object1 = new ObjectFBX;
     object1->Initialize();
     object1->SetModel(model1);
-    camera_->SetTarget({ 0,0,-1 });
+    camera_->SetTarget({ 0,0,0 });
     //camera_->SetEye({ 0,0,0 });
     object1->PlayAnimation();
 
