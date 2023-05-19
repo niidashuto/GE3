@@ -7,6 +7,7 @@
 
 #include "DirectXCommon.h"
 
+
 //スプライト共通部
 class SpriteCommon
 {
@@ -45,5 +46,7 @@ protected:
 
 	//テクスチャバッファ
 	std::array<Microsoft::WRL::ComPtr<ID3D12Resource>, kMaxSRVCount>texBuff;
+
+	
 
 };
