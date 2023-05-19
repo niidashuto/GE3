@@ -54,6 +54,14 @@ public://Ã“Iƒƒ“ƒoŠÖ”
 
 	static void SetCamera(Camera* camera) { ObjectFBX::camera = camera; }
 
+	void SetPosition(const XMFLOAT3& position) { this->position = position; }
+
+	void SetScale(const XMFLOAT3& scale) { this->scale = scale; }
+
+	void SetRotation(const XMFLOAT3& rotation) { this->rotation = rotation; }
+
+	
+
 	static void CreateGraphicsPipeline();
 
 protected:

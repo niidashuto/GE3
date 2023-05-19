@@ -3,6 +3,7 @@
 #include "FbxLoader.h"
 #include "ObjectFBX.h"
 
+
 void MyGame::Initialize()
 {
 #pragma region Šî”ÕƒVƒXƒeƒ€‚Ì‰Šú‰»
@@ -10,8 +11,18 @@ void MyGame::Initialize()
 
     SNFramework::Initialize();
 
-    spriteCommon->LoadTexture(0, "texture.png");
-    spriteCommon->LoadTexture(1, "reimu.png");
+    //spriteCommon->LoadTexture(0, "texture.png");
+    //spriteCommon->LoadTexture(1, "reimu.png");
+
+    spriteCommon->LoadTexture(1, "white1x1.png");
+    
+
+    postEffect = new PostEffect();
+    postEffect->SetTextureIndex(1);
+    postEffect->Initialize(spriteCommon,1);
+    postEffect->SetSize({ 500.0f,500.0f });
+    
+    
 
     Object3d::StaticInitialize(dxCommon->GetDevice(), WinApp::window_width, WinApp::window_height);
 
@@ -35,15 +46,15 @@ void MyGame::Initialize()
     imGui->Initialize(winApp, dxCommon);
 
     
-    sprite = new Sprite();
-    sprite->SetTextureIndex(0);
-    sprite->Initialize(spriteCommon, 1);
+    //sprite = new Sprite();
+    //sprite->SetTextureIndex(0);
+    //sprite->Initialize(spriteCommon, 1);
 
-    sprite2 = new Sprite();
-    sprite2->SetTextureIndex(0);
-    sprite2->Initialize(spriteCommon, 0);
+    //sprite2 = new Sprite();
+    //sprite2->SetTextureIndex(0);
+    //sprite2->Initialize(spriteCommon, 0);
 
-    sprite2->SetPosition({ 800,0 });
+    //sprite2->SetPosition({ 800,0 });
     model_1 = Model::LoadFromOBJ("ground");
     //model_2 = Model::LoadFromOBJ("ball");
 
@@ -89,7 +100,9 @@ void MyGame::Initialize()
     object1 = new ObjectFBX;
     object1->Initialize();
     object1->SetModel(model1);
-    camera_->SetTarget({ 0,0,0 });
+    object1->SetRotation({ 0,90,0 });
+    camera_->SetTarget({ 0,2.5f,0 });
+    camera_->SetEye({ 0,0,8.0f });
     //camera_->SetEye({ 0,0,0 });
     object1->PlayAnimation();
 
@@ -166,9 +179,11 @@ void MyGame::Update()
     }
 
     camera_->Update();
-    sprite->Update();
+    //sprite->Update();
 
-    sprite2->Update();
+    //sprite2->Update();
+
+    postEffect->Update();
 
     object3d_1->Update();
     object3d_2->Update();
@@ -203,6 +218,7 @@ void MyGame::Draw()
     spriteCommon->PreDraw();
     //sprite->Draw();
     //sprite2->Draw();
+    postEffect->Draw(dxCommon->GetCommandList());
     spriteCommon->PostDraw();
     ParticleManager::PreDraw(dxCommon->GetCommandList());
     //pm1_->Draw();
@@ -214,7 +230,7 @@ void MyGame::Draw()
     //object3d_2->Draw();
     //object3d_3->Draw();
 
-    object1->Draw(dxCommon->GetCommandList());
+    //object1->Draw(dxCommon->GetCommandList());
 
     Object3d::PostDraw();
 

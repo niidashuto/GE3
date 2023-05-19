@@ -68,7 +68,7 @@ private://メンバ関数
 	//テクスチャサイズをイメージに合わせる
 	void AdjustTextureSize();
 
-private:
+protected:
 	//スプライト情報
 	DirectX::XMFLOAT4 color_ = { 1,1,1,1 };
 	float rotationZ = 0.0f;

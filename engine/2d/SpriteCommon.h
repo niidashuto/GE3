@@ -25,12 +25,14 @@ public://メンバ関数
 	DirectXCommon* GetDirectXCommon() { return dxCommon_; }
 	ID3D12Resource* GetTextureBuffer(uint32_t index)const { return texBuff[index].Get(); }
 
-private://静的メンバ変数
+	ID3D12PipelineState* GetPipeLineState() { return pipelineState.Get(); }
+	ID3D12RootSignature* GetRootSignature() { return rootSignature.Get(); }
+protected://静的メンバ変数
 	//SRVの最大個数
 	static const size_t kMaxSRVCount = 2056;
 	//デフォルトテクスチャ格納ディレクトリ
 	static std::string kDefaultTextureDirectoryPath;
-private:
+protected:
 	DirectXCommon* dxCommon_ = nullptr;
 
 	Microsoft::WRL::ComPtr<ID3D12PipelineState> pipelineState;

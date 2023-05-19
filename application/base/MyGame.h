@@ -4,13 +4,14 @@
 #include "Object3d.h"
 #include "Model.h"
 #include "ImGuiManager.h"
-#include "imgui/imgui.h"
+#include <imgui.h>
 #include <fstream>
 #include <wrl.h>
 #include "SNFramework.h"
 #include "Camera.h"
 #include "ParticleManager.h"
 #include "ObjectFBX.h"
+#include "PostEffect.h"
 
 class MyGame : public SNFramework
 {
@@ -53,6 +54,7 @@ private:
 
 	ObjectFBX* object1 = nullptr;
 
+	PostEffect* postEffect = nullptr;
 
 };
 

@@ -1,4 +1,9 @@
-float4 main( float4 pos : POSITION ) : SV_POSITION
+#include "Particle.hlsli"
+
+VSOutput main(float4 pos : POSITION, float scale : TEXCOORD)
 {
-	return pos;
+	VSOutput output; // ピクセルシェーダーに渡す値
+	output.pos = pos;
+	output.scale = scale;
+	return output;
 }
