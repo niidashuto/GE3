@@ -15,6 +15,12 @@ void MyGame::Initialize()
     //spriteCommon->LoadTexture(1, "reimu.png");
 
     spriteCommon->LoadTexture(1, "white1x1.png");
+
+    spriteCommon->LoadTexture(0, "background.png");
+
+    sprite = new Sprite();
+    sprite->SetTextureIndex(0),
+    sprite->Initialize(spriteCommon, 0);
     
 
     postEffect = new PostEffect();
@@ -211,6 +217,12 @@ void MyGame::Update()
 
 void MyGame::Draw()
 {
+    postEffect->PreDrawScene(dxCommon->GetCommandList());
+    spriteCommon->PreDraw();
+    //sprite->Draw();
+    spriteCommon->PostDraw();
+    postEffect->PostDrawScene(dxCommon->GetCommandList());
+   
     //•`‰æ‘Oˆ—
     dxCommon->PreDraw();
 
@@ -218,7 +230,11 @@ void MyGame::Draw()
     spriteCommon->PreDraw();
     //sprite->Draw();
     //sprite2->Draw();
+    
+
     postEffect->Draw(dxCommon->GetCommandList());
+
+    
     spriteCommon->PostDraw();
     ParticleManager::PreDraw(dxCommon->GetCommandList());
     //pm1_->Draw();
