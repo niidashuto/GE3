@@ -112,7 +112,7 @@ void SpriteCommon::Initialize(DirectXCommon* dxCommon)
 	D3D12_RENDER_TARGET_BLEND_DESC& blenddesc = pipelineDesc.BlendState.RenderTarget[0];
 	blenddesc.RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
 	//共通設定(アルファ値)
-	blenddesc.BlendEnable = false;
+	blenddesc.BlendEnable = true;
 	blenddesc.BlendOpAlpha = D3D12_BLEND_OP_ADD;//加算
 	blenddesc.SrcBlendAlpha = D3D12_BLEND_ONE;//ソースの値を100％使う
 	blenddesc.DestBlendAlpha = D3D12_BLEND_ZERO;//デストの値を0％使う
