@@ -18,9 +18,7 @@ void MyGame::Initialize()
 
     spriteCommon->LoadTexture(0, "background.png");
 
-    sprite = new Sprite();
-    sprite->SetTextureIndex(0),
-    sprite->Initialize(spriteCommon, 0);
+   
     
 
     postEffect = new PostEffect();
@@ -55,6 +53,10 @@ void MyGame::Initialize()
     //sprite = new Sprite();
     //sprite->SetTextureIndex(0);
     //sprite->Initialize(spriteCommon, 1);
+
+    sprite = new Sprite();
+    sprite->SetTextureIndex(0),
+    sprite->Initialize(spriteCommon, 0);
 
     //sprite2 = new Sprite();
     //sprite2->SetTextureIndex(0);
@@ -185,7 +187,7 @@ void MyGame::Update()
     }
 
     camera_->Update();
-    //sprite->Update();
+    sprite->Update();
 
     //sprite2->Update();
 
@@ -219,7 +221,7 @@ void MyGame::Draw()
 {
     postEffect->PreDrawScene(dxCommon->GetCommandList());
     spriteCommon->PreDraw();
-    //sprite->Draw();
+    sprite->Draw();
     spriteCommon->PostDraw();
     postEffect->PostDrawScene(dxCommon->GetCommandList());
    
@@ -231,7 +233,7 @@ void MyGame::Draw()
     //sprite->Draw();
     //sprite2->Draw();
     
-
+    
     postEffect->Draw(dxCommon->GetCommandList());
 
     
@@ -246,7 +248,7 @@ void MyGame::Draw()
     //object3d_2->Draw();
     //object3d_3->Draw();
 
-    //object1->Draw(dxCommon->GetCommandList());
+    object1->Draw(dxCommon->GetCommandList());
 
     Object3d::PostDraw();
 
