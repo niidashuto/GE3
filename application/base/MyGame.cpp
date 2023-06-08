@@ -222,10 +222,10 @@ void MyGame::Update()
 void MyGame::Draw()
 {
     postEffect->PreDrawScene(dxCommon->GetCommandList());
-    spriteCommon->PreDraw();
+    //spriteCommon->PreDraw();
     
     postEffect->Draw(dxCommon->GetCommandList());
-    spriteCommon->PostDraw();
+    //spriteCommon->PostDraw();
     postEffect->PostDrawScene(dxCommon->GetCommandList());
    
     //•`‰æ‘Oˆ—
