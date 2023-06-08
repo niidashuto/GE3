@@ -19,6 +19,58 @@ void PostEffect::Initialize(SpriteCommon* spriteCommon_, uint32_t textureIndex)
 
 	Sprite::Initialize(spriteCommon_,textureIndex);
 
+	//CD3DX12_HEAP_PROPERTIES heapProp = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+	//CD3DX12_RESOURCE_DESC resDesc = CD3DX12_RESOURCE_DESC::Buffer(sizeof(Vertex) * 4);
+
+	////頂点バッファの生成
+	//result = spriteCommon_->GetDirectXCommon()->GetDevice()->CreateCommittedResource(
+	//	&heapProp,//ヒープ設定
+	//	D3D12_HEAP_FLAG_NONE,
+	//	&resDesc,//リソース設定
+	//	D3D12_RESOURCE_STATE_GENERIC_READ,
+	//	nullptr,
+	//	IID_PPV_ARGS(&vertBuff));
+	//assert(SUCCEEDED(result));
+
+	////頂点データ
+	//Vertex vertices[4] = {
+	//	{{-0.5f,-0.5f,0.0f},{0.0f,1.0f}},
+	//	{{-0.5f,+0.5f,0.0f},{0.0f,0.0f}},
+	//	{{+0.5f,-0.5f,0.0f},{1.0f,1.0f}},
+	//	{{+0.5f,+0.5f,0.0f},{1.0f,0.0f}},
+	//};
+
+	////頂点バッファへのデータ転送
+	//Vertex* vertMap = nullptr;
+	//result = vertBuff->Map(0, nullptr, (void**)&vertMap);
+	//if (SUCCEEDED(result))
+	//{
+	//	memcpy(vertMap, vertices, sizeof(vertices));
+	//	vertBuff->Unmap(0, nullptr);
+	//}
+
+	////頂点バッファビューの作成
+	//vbView.BufferLocation = vertBuff->GetGPUVirtualAddress();
+	//vbView.SizeInBytes = sizeof(Vertex) * 4;
+	//vbView.StrideInBytes = sizeof(Vertex);
+
+	//CD3DX12_HEAP_PROPERTIES cbHeapProp = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+	//CD3DX12_RESOURCE_DESC cbResourceDesc = CD3DX12_RESOURCE_DESC::Buffer((sizeof(ConstBufferData) + 0xff) & ~0xff);
+
+	////定数バッファの生成
+	//result = spriteCommon_->GetDirectXCommon()->GetDevice()->CreateCommittedResource(
+	//	&cbHeapProp,//ヒープ設定
+	//	D3D12_HEAP_FLAG_NONE,
+	//	&cbResourceDesc,//リソース設定
+	//	D3D12_RESOURCE_STATE_GENERIC_READ,
+	//	nullptr,
+	//	IID_PPV_ARGS(&constBuff));
+	//assert(SUCCEEDED(result));
+
+
+
+	
+
 	//テクスチャリソース設定
 	CD3DX12_RESOURCE_DESC texresDesc = CD3DX12_RESOURCE_DESC::Tex2D(
 		DXGI_FORMAT_R8G8B8A8_UNORM_SRGB,

@@ -9,6 +9,7 @@ using namespace DirectX;
 
 ID3D12Device* ObjectFBX::device = nullptr;
 Camera* ObjectFBX::camera = nullptr;
+ID3D12GraphicsCommandList* ObjectFBX::cmdList_;
 ComPtr<ID3D12RootSignature> ObjectFBX::rootsignature;
 ComPtr<ID3D12PipelineState> ObjectFBX::pipelinestate;
 
@@ -134,19 +135,14 @@ void ObjectFBX::Draw(ID3D12GraphicsCommandList* cmdList)
 	{
 		return;
 	}
-	//パイプラインステートの設定
-	cmdList->SetPipelineState(pipelinestate.Get());
-	//ルートシグネチャの設定
-	cmdList->SetGraphicsRootSignature(rootsignature.Get());
-	//プリミティブ形状を設定
-	cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	
 	//定数バッファビューをセット
-	cmdList->SetGraphicsRootConstantBufferView(0, constBuffTransform->GetGPUVirtualAddress());
+	cmdList_->SetGraphicsRootConstantBufferView(0, constBuffTransform->GetGPUVirtualAddress());
 	//定数バッファビューをセット
-	cmdList->SetGraphicsRootConstantBufferView(2, constBuffSkin->GetGPUVirtualAddress());
+	cmdList_->SetGraphicsRootConstantBufferView(2, constBuffSkin->GetGPUVirtualAddress());
 
 	//モデル描画
-	fbxModel->Draw(cmdList);
+	fbxModel->Draw(cmdList_);
 
 }
 
@@ -168,6 +164,28 @@ void ObjectFBX::PlayAnimation()
 	currentTime = startTime;
 	//再生中状態にする
 	isPlay = true;
+}
+
+void ObjectFBX::PreDraw(ID3D12GraphicsCommandList* cmdList)
+{
+	// PreDrawとPostDrawがペアで呼ばれていなければエラー
+	assert(ObjectFBX::cmdList_ == nullptr);
+
+	// コマンドリストをセット
+	ObjectFBX::cmdList_ = cmdList;
+
+	// パイプラインステートの設定
+	cmdList->SetPipelineState(pipelinestate.Get());
+	// ルートシグネチャの設定
+	cmdList->SetGraphicsRootSignature(rootsignature.Get());
+	// プリミティブ形状を設定
+	cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+}
+
+void ObjectFBX::PostDraw()
+{
+	// コマンドリストを解除
+	ObjectFBX::cmdList_ = nullptr;
 }
 
 void ObjectFBX::CreateGraphicsPipeline()

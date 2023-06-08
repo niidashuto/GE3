@@ -60,7 +60,9 @@ public://静的メンバ関数
 
 	void SetRotation(const XMFLOAT3& rotation) { this->rotation = rotation; }
 
-	
+	static void PreDraw(ID3D12GraphicsCommandList* cmdList);
+
+	static void PostDraw();
 
 	static void CreateGraphicsPipeline();
 
@@ -94,6 +96,8 @@ private://静的メンバ変数
 	static ID3D12Device* device;
 	//カメラ
 	static Camera* camera;
+
+	static ID3D12GraphicsCommandList* cmdList_;
 
 	static ComPtr<ID3D12RootSignature> rootsignature;
 

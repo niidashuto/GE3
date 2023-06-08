@@ -7,6 +7,12 @@ class PostEffect :
     public Sprite
 {
 public:
+    //定数バッファデータ構造体(マテリアル)
+    struct ConstBufferData {
+        DirectX::XMFLOAT4 color;
+        DirectX::XMMATRIX mat;
+    };
+public:
     PostEffect();
 
     void Initialize(SpriteCommon* spriteCommon_, uint32_t textureIndex);
@@ -27,6 +33,8 @@ private:
     Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> descHeapSRV;
 
     Microsoft::WRL::ComPtr<ID3D12Resource> depthBuff;
+
+    Microsoft::WRL::ComPtr<ID3D12Resource> constBuff;
 
     Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> descHeapRTV;
 

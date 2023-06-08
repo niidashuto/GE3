@@ -134,6 +134,8 @@ void MyGame::Finalize()
     //DirectX‰ğ•ú
     delete dxCommon;
 
+    delete postEffect;
+
     delete object3d_1;
     delete object3d_2;
     delete object3d_3;
@@ -221,7 +223,8 @@ void MyGame::Draw()
 {
     postEffect->PreDrawScene(dxCommon->GetCommandList());
     spriteCommon->PreDraw();
-    sprite->Draw();
+    
+    postEffect->Draw(dxCommon->GetCommandList());
     spriteCommon->PostDraw();
     postEffect->PostDrawScene(dxCommon->GetCommandList());
    
@@ -233,8 +236,8 @@ void MyGame::Draw()
     //sprite->Draw();
     //sprite2->Draw();
     
+    sprite->Draw();
     
-    postEffect->Draw(dxCommon->GetCommandList());
 
     
     spriteCommon->PostDraw();
@@ -248,9 +251,13 @@ void MyGame::Draw()
     //object3d_2->Draw();
     //object3d_3->Draw();
 
+    Object3d::PostDraw();
+
+    ObjectFBX::PreDraw(dxCommon->GetCommandList());
+
     object1->Draw(dxCommon->GetCommandList());
 
-    Object3d::PostDraw();
+    ObjectFBX::PostDraw();
 
     imGui->Draw();
 #pragma endregion Å‰‚ÌƒV[ƒ“‚Ì•`‰æ
