@@ -2,6 +2,7 @@
 #include "Quaternion.h"
 #include "FbxLoader.h"
 #include "ObjectFBX.h"
+//#include "JsonLoader.h"
 
 
 void MyGame::Initialize()
@@ -14,13 +15,13 @@ void MyGame::Initialize()
     //spriteCommon->LoadTexture(0, "texture.png");
     //spriteCommon->LoadTexture(1, "reimu.png");
 
-    //scene_ = new GamePlayScene();
+    scene_ = new GamePlayScene();
 
-    //scene_->Initialize();
+    scene_->Initialize();
 
-    spriteCommon->LoadTexture(1, "white1x1.png");
+    //spriteCommon->LoadTexture(1, "white1x1.png");
 
-    spriteCommon->LoadTexture(0, "background.png");
+    //spriteCommon->LoadTexture(0, "background.png");
 
     postEffect = new PostEffect();
     postEffect->SetTextureIndex(1);
@@ -29,7 +30,7 @@ void MyGame::Initialize()
     
     
 
-    Object3d::StaticInitialize(dxCommon->GetDevice(), WinApp::window_width, WinApp::window_height);
+    //Object3d::StaticInitialize(dxCommon->GetDevice(), WinApp::window_width, WinApp::window_height);
 
     
 
@@ -114,6 +115,37 @@ void MyGame::Initialize()
     camera_->SetEye({ 0,0,8.0f });
     //camera_->SetEye({ 0,0,0 });
     object1->PlayAnimation();
+
+    //// レベルデータからオブジェクトを生成、配置
+    //for (auto& objectData : jsonData->objects) {
+    //    // ファイル名から登録済みモデルを検索
+    //    Model* model = nullptr;
+    //    decltype(models)::iterator it = models.find(objectData.fileName);
+    //    if (it != models.end()) {
+    //        model = it->second;
+    //    }
+
+    //    // モデルを指定して3Dオブジェクトを生成
+    //    Object3d* newObject = Object3d::Create(model);
+
+    //    // 座標
+    //    DirectX::XMFLOAT3 pos;
+    //    DirectX::XMStoreFloat3(&pos, objectData.translation);
+    //    newObject->SetPosition(pos);
+
+    //    // 回転角
+    //    DirectX::XMFLOAT3 rot;
+    //    DirectX::XMStoreFloat3(&rot, objectData.rotation);
+    //    newObject->SetRotation(rot);
+
+    //    // 座標
+    //    DirectX::XMFLOAT3 scale;
+    //    DirectX::XMStoreFloat3(&scale, objectData.scaling);
+    //    newObject->SetScale(scale);
+
+    //    // 配列に登録
+    //    objects.push_back(newObject);
+    //}
 
 #pragma endregion 最初のシーンを初期化
 }
@@ -256,7 +288,7 @@ void MyGame::Draw()
 
     ObjectFBX::PreDraw(dxCommon->GetCommandList());
 
-    //object1->Draw(dxCommon->GetCommandList());
+    object1->Draw(dxCommon->GetCommandList());
 
     ObjectFBX::PostDraw();
 

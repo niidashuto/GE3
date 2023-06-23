@@ -153,6 +153,9 @@
     <ClCompile Include="engine\2d\PostEffect.cpp">
       <Filter>ソース ファイル\engine\2d</Filter>
     </ClCompile>
+    <ClCompile Include="JsonLoader.cpp">
+      <Filter>ソース ファイル\engine\3d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Sprite.hlsli">
@@ -270,5 +273,16 @@
     <ClInclude Include="engine\2d\PostEffect.h">
       <Filter>ヘッダー ファイル\engine\2d</Filter>
     </ClInclude>
+    <ClInclude Include="JsonLoader.h">
+      <Filter>ヘッダー ファイル\engine\3d</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>ヘッダー ファイル\engine\3d</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DirectXGame.rc">
+      <Filter>シェーダー ファイル</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -14,6 +14,7 @@
 #include "PostEffect.h"
 #include "GamePlayScene.h"
 
+
 class MyGame : public SNFramework
 {
 public:

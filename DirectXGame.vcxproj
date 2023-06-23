@@ -175,6 +175,7 @@
     <ClCompile Include="engine\scene\GamePlayScene.cpp" />
     <ClCompile Include="engine\io\ImGuiManager.cpp" />
     <ClCompile Include="engine\base\Input.cpp" />
+    <ClCompile Include="JsonLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="engine\math\Matrix4.cpp" />
     <ClCompile Include="engine\3d\Model.cpp" />
@@ -297,6 +298,8 @@
     <ClInclude Include="engine\math\Vector3.h" />
     <ClInclude Include="engine\base\ViewProjection.h" />
     <ClInclude Include="engine\base\WinApp.h" />
+    <ClInclude Include="json.hpp" />
+    <ClInclude Include="JsonLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
@@ -305,6 +308,9 @@
     <ProjectReference Include="External\imgui\imgui.vcxproj">
       <Project>{352d3b83-7ee1-4b90-a2c9-312aca2b2328}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DirectXGame.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
