@@ -28,6 +28,9 @@ public://ƒƒ“ƒoŠÖ”
 
 	ID3D12PipelineState* GetPipeLineState() { return pipelineState.Get(); }
 	ID3D12RootSignature* GetRootSignature() { return rootSignature.Get(); }
+
+public:
+	static SpriteCommon* GetInstance();
 protected://Ã“Iƒƒ“ƒo•Ï”
 	//SRV‚ÌÅ‘åŒÂ”
 	static const size_t kMaxSRVCount = 2056;

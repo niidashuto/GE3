@@ -14,12 +14,13 @@ void MyGame::Initialize()
     //spriteCommon->LoadTexture(0, "texture.png");
     //spriteCommon->LoadTexture(1, "reimu.png");
 
+    //scene_ = new GamePlayScene();
+
+    //scene_->Initialize();
+
     spriteCommon->LoadTexture(1, "white1x1.png");
 
     spriteCommon->LoadTexture(0, "background.png");
-
-   
-    
 
     postEffect = new PostEffect();
     postEffect->SetTextureIndex(1);
@@ -35,7 +36,7 @@ void MyGame::Initialize()
     ParticleManager::StaticInitialize(dxCommon->GetDevice());
 
     //音声読み込み
-    audio->SoundLoadWave("Resources/fanfare.wav");
+    //audio->SoundLoadWave("Resources/fanfare.wav");
     //音声再生
     //audio->SoundPlayWave("Resources/fanfare.wav");
 
@@ -78,7 +79,7 @@ void MyGame::Initialize()
     object3d_2->SetPosition({ -5,0,-5 });
     object3d_3->SetPosition({ +5,0,+5 });
     //3Dオブジェクトのスケールを指定
-    object3d_1->SetPosition({ 0,-50,0 });
+    object3d_1->SetPosition({ 0,-10,0 });
     object3d_1->SetScale({ 10.0f,10.0f,10.0f });
     object3d_2->SetScale({ 10.0f,10.0f,10.0f });
     object3d_3->SetScale({ 10.0f,10.0f,10.0f });
@@ -224,7 +225,7 @@ void MyGame::Draw()
     postEffect->PreDrawScene(dxCommon->GetCommandList());
     //spriteCommon->PreDraw();
     
-    postEffect->Draw(dxCommon->GetCommandList());
+    //postEffect->Draw(dxCommon->GetCommandList());
     //spriteCommon->PostDraw();
     postEffect->PostDrawScene(dxCommon->GetCommandList());
    
@@ -236,7 +237,7 @@ void MyGame::Draw()
     //sprite->Draw();
     //sprite2->Draw();
     
-    sprite->Draw();
+    //sprite->Draw();
     
 
     
@@ -247,7 +248,7 @@ void MyGame::Draw()
     ParticleManager::PostDraw();
 
     Object3d::PreDraw(dxCommon->GetCommandList());
-    //object3d_1->Draw();
+    object3d_1->Draw();
     //object3d_2->Draw();
     //object3d_3->Draw();
 
@@ -255,7 +256,7 @@ void MyGame::Draw()
 
     ObjectFBX::PreDraw(dxCommon->GetCommandList());
 
-    object1->Draw(dxCommon->GetCommandList());
+    //object1->Draw(dxCommon->GetCommandList());
 
     ObjectFBX::PostDraw();
 

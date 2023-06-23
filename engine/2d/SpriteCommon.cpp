@@ -307,6 +307,12 @@ void SpriteCommon::PostDraw()
 
 }
 
+SpriteCommon* SpriteCommon::GetInstance()
+{
+	static SpriteCommon ins;
+	return &ins;
+}
+
 void SpriteCommon::SetTextureCommands(uint32_t index)
 {
 	

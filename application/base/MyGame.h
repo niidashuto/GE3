@@ -12,6 +12,7 @@
 #include "ParticleManager.h"
 #include "ObjectFBX.h"
 #include "PostEffect.h"
+#include "GamePlayScene.h"
 
 class MyGame : public SNFramework
 {
@@ -55,6 +56,8 @@ private:
 	ObjectFBX* object1 = nullptr;
 
 	PostEffect* postEffect = nullptr;
+
+	GamePlayScene* scene_ = nullptr;
 
 };
 

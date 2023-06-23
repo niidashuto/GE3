@@ -126,3 +126,9 @@ void Audio::SoundPlayWave(std::string filename)
     result = pSourceVoice->SubmitSourceBuffer(&buf);
     result = pSourceVoice->Start();
 }
+
+Audio* Audio::GetInstance()
+{
+    static Audio ins;
+    return &ins;
+}

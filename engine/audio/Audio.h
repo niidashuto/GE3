@@ -49,6 +49,8 @@ public:
 
     void SoundPlayWave(std::string filename);
 
+    static Audio* GetInstance();
+
 private:
     Microsoft::WRL::ComPtr<IXAudio2> xAudio2_;
     

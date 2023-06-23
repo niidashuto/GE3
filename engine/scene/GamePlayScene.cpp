@@ -1,17 +1,25 @@
 #include "GamePlayScene.h"
+#include "SpriteCommon.h"
+#include "Object3d.h"
+#include "ParticleManager.h"
+#include "DirectXCommon.h"
+#include "Audio.h"
 
-void GamePlayScene::Initializa()
+void GamePlayScene::Initialize()
 {
-  
-    //spriteCommon->LoadTexture(0, "texture.png");
-    //spriteCommon->LoadTexture(1, "reimu.png");
+    ////spriteCommon->LoadTexture(0, "texture.png");
+    ////spriteCommon->LoadTexture(1, "reimu.png");
 
-    //Object3d::StaticInitialize(dxCommon->GetDevice(), WinApp::window_width, WinApp::window_height);
+    //SpriteCommon::GetInstance()->LoadTexture(1, "white1x1.png");
 
-    //‰¹º“Ç‚Ýž‚Ý
-    //audio->SoundLoadWave("Resources/fanfare.wav");
-    //‰¹ºÄ¶
-    //audio->SoundPlayWave("Resources/fanfare.wav");
+    //SpriteCommon::GetInstance()->LoadTexture(0, "background.png");
+
+    //ParticleManager::StaticInitialize(DirectXCommon::GetInstance()->GetDevice());
+
+    ////‰¹º“Ç‚Ýž‚Ý
+    //Audio::GetInstance()->SoundLoadWave("Resources/fanfare.wav");
+    ////‰¹ºÄ¶
+    ////audio->SoundPlayWave("Resources/fanfare.wav");
 }
 
 void GamePlayScene::Finalize()

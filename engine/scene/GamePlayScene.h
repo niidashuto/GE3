@@ -4,7 +4,7 @@ class GamePlayScene
 public://ƒƒ“ƒoŠÖ”
 
 	//‰Šú‰»
-	void Initializa();
+	void Initialize();
 
 	//I—¹
 	void Finalize();
