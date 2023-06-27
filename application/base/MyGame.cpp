@@ -298,7 +298,7 @@ void MyGame::Draw()
 
     ObjectFBX::PreDraw(dxCommon->GetCommandList());
 
-    //object1->Draw(dxCommon->GetCommandList());
+    object1->Draw(dxCommon->GetCommandList());
 
     ObjectFBX::PostDraw();
 
