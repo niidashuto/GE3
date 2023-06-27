@@ -2,7 +2,7 @@
 #include "Quaternion.h"
 #include "FbxLoader.h"
 #include "ObjectFBX.h"
-//#include "JsonLoader.h"
+
 
 
 void MyGame::Initialize()
@@ -30,7 +30,7 @@ void MyGame::Initialize()
     
     
 
-    //Object3d::StaticInitialize(dxCommon->GetDevice(), WinApp::window_width, WinApp::window_height);
+    Object3d::StaticInitialize(dxCommon->GetDevice(), WinApp::window_width, WinApp::window_height);
 
     
 
@@ -65,8 +65,12 @@ void MyGame::Initialize()
     //sprite2->Initialize(spriteCommon, 0);
 
     //sprite2->SetPosition({ 800,0 });
+
+    // レベルデータの読み込み
+    //jsonData = JsonLoader::LoadFile("TL");
+
     model_1 = Model::LoadFromOBJ("ground");
-    //model_2 = Model::LoadFromOBJ("ball");
+    model_2 = Model::LoadFromOBJ("ball");
 
     object3d_1 = Object3d::Create();
     object3d_2 = Object3d::Create();
@@ -116,6 +120,12 @@ void MyGame::Initialize()
     //camera_->SetEye({ 0,0,0 });
     object1->PlayAnimation();
 
+    
+    //models.insert(std::make_pair("ground", model_1));
+    //models.insert(std::make_pair("ball", model_2));
+    
+    
+
     //// レベルデータからオブジェクトを生成、配置
     //for (auto& objectData : jsonData->objects) {
     //    // ファイル名から登録済みモデルを検索
@@ -126,7 +136,7 @@ void MyGame::Initialize()
     //    }
 
     //    // モデルを指定して3Dオブジェクトを生成
-    //    Object3d* newObject = Object3d::Create(model);
+    //    Object3d* newObject = Object3d::Create();
 
     //    // 座標
     //    DirectX::XMFLOAT3 pos;
@@ -280,7 +290,7 @@ void MyGame::Draw()
     ParticleManager::PostDraw();
 
     Object3d::PreDraw(dxCommon->GetCommandList());
-    object3d_1->Draw();
+    //object3d_1->Draw();
     //object3d_2->Draw();
     //object3d_3->Draw();
 
@@ -288,7 +298,7 @@ void MyGame::Draw()
 
     ObjectFBX::PreDraw(dxCommon->GetCommandList());
 
-    object1->Draw(dxCommon->GetCommandList());
+    //object1->Draw(dxCommon->GetCommandList());
 
     ObjectFBX::PostDraw();
 

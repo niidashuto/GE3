@@ -14,7 +14,7 @@ void GamePlayScene::Initialize()
 
     SpriteCommon::GetInstance()->LoadTexture(0, "background.png");
 
-    ParticleManager::StaticInitialize(DirectXCommon::GetInstance()->GetDevice());
+    //ParticleManager::StaticInitialize(DirectXCommon::GetInstance()->GetDevice());
 
     //‰¹º“Ç‚Ýž‚Ý
     //Audio::GetInstance()->SoundLoadWave("Resources/fanfare.wav");

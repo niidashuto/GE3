@@ -166,6 +166,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="engine\2d\PostEffect.cpp" />
+    <ClCompile Include="engine\3d\JsonLoader.cpp" />
     <ClCompile Include="engine\audio\Audio.cpp" />
     <ClCompile Include="engine\3d\Camera.cpp" />
     <ClCompile Include="engine\base\DirectXCommon.cpp" />
@@ -175,7 +176,6 @@
     <ClCompile Include="engine\scene\GamePlayScene.cpp" />
     <ClCompile Include="engine\io\ImGuiManager.cpp" />
     <ClCompile Include="engine\base\Input.cpp" />
-    <ClCompile Include="JsonLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="engine\math\Matrix4.cpp" />
     <ClCompile Include="engine\3d\Model.cpp" />
@@ -276,6 +276,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\2d\PostEffect.h" />
+    <ClInclude Include="engine\3d\json.hpp" />
+    <ClInclude Include="engine\3d\JsonLoader.h" />
     <ClInclude Include="engine\audio\Audio.h" />
     <ClInclude Include="engine\3d\Camera.h" />
     <ClInclude Include="engine\base\DirectXCommon.h" />
@@ -298,8 +300,6 @@
     <ClInclude Include="engine\math\Vector3.h" />
     <ClInclude Include="engine\base\ViewProjection.h" />
     <ClInclude Include="engine\base\WinApp.h" />
-    <ClInclude Include="json.hpp" />
-    <ClInclude Include="JsonLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="External\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

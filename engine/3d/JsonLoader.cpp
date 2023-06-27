@@ -4,7 +4,7 @@
 #include <fstream>
 #include <cassert>
 
-const std::string JsonLoader::kDefaultBaseDirectory = "Resources/levels/";
+const std::string JsonLoader::kDefaultBaseDirectory = "Resources/jsons/";
 const std::string JsonLoader::kExtension = ".json";
 
 JsonData* JsonLoader::LoadFile(const std::string& fileName)

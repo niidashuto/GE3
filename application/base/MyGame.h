@@ -13,7 +13,7 @@
 #include "ObjectFBX.h"
 #include "PostEffect.h"
 #include "GamePlayScene.h"
-
+#include "JsonLoader.h"
 
 class MyGame : public SNFramework
 {
@@ -59,6 +59,12 @@ private:
 	PostEffect* postEffect = nullptr;
 
 	GamePlayScene* scene_ = nullptr;
+
+	JsonData* jsonData = nullptr;
+
+	std::map<std::string, Model*> models;
+
+	std::vector<Object3d*> objects;
 
 };
 

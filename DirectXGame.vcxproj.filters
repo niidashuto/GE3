@@ -153,7 +153,7 @@
     <ClCompile Include="engine\2d\PostEffect.cpp">
       <Filter>ソース ファイル\engine\2d</Filter>
     </ClCompile>
-    <ClCompile Include="JsonLoader.cpp">
+    <ClCompile Include="engine\3d\JsonLoader.cpp">
       <Filter>ソース ファイル\engine\3d</Filter>
     </ClCompile>
   </ItemGroup>
@@ -273,10 +273,10 @@
     <ClInclude Include="engine\2d\PostEffect.h">
       <Filter>ヘッダー ファイル\engine\2d</Filter>
     </ClInclude>
-    <ClInclude Include="JsonLoader.h">
+    <ClInclude Include="engine\3d\json.hpp">
       <Filter>ヘッダー ファイル\engine\3d</Filter>
     </ClInclude>
-    <ClInclude Include="json.hpp">
+    <ClInclude Include="engine\3d\JsonLoader.h">
       <Filter>ヘッダー ファイル\engine\3d</Filter>
     </ClInclude>
   </ItemGroup>
