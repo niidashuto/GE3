@@ -24,9 +24,11 @@ void MyGame::Initialize()
     //spriteCommon->LoadTexture(0, "background.png");
 
     postEffect = new PostEffect();
-    postEffect->SetTextureIndex(1);
-    postEffect->Initialize(spriteCommon,1);
-    postEffect->SetSize({ 500.0f,500.0f });
+    
+    postEffect->Initialize(spriteCommon, 0);
+
+    postEffect->SetSize({ 500,500 });
+    
     
     
 
@@ -60,38 +62,26 @@ void MyGame::Initialize()
     sprite->SetTextureIndex(0),
     sprite->Initialize(spriteCommon, 0);
 
-    //sprite2 = new Sprite();
-    //sprite2->SetTextureIndex(0);
-    //sprite2->Initialize(spriteCommon, 0);
+    /*sprite2 = new Sprite();
+    sprite2->SetTextureIndex(0);
+    sprite2->Initialize(spriteCommon, 0);*/
 
     //sprite2->SetPosition({ 800,0 });
 
     // レベルデータの読み込み
-    //jsonData = JsonLoader::LoadFile("TL");
+    jsonData = JsonLoader::LoadFile("TL");
 
     model_1 = Model::LoadFromOBJ("ground");
     model_2 = Model::LoadFromOBJ("ball");
+    model_3 = Model::LoadFromOBJ("skydome");
+    model_4 = Model::LoadFromOBJ("sphere");
 
-    object3d_1 = Object3d::Create();
-    object3d_2 = Object3d::Create();
-    object3d_3 = Object3d::Create();
-    
-    //3Dオブジェクトと3Dモデルをひも付け
-    object3d_1->SetModel(model_1);
-    object3d_2->SetModel(model_2);
-    object3d_3->SetModel(model_2);
+   
     //3Dオブジェクトの位置を指定
-    object3d_2->SetPosition({ -5,0,-5 });
-    object3d_3->SetPosition({ +5,0,+5 });
+    //object3d_2->SetPosition({ -5,0,-5 });
     //3Dオブジェクトのスケールを指定
-    object3d_1->SetPosition({ 0,-10,0 });
-    object3d_1->SetScale({ 10.0f,10.0f,10.0f });
-    object3d_2->SetScale({ 10.0f,10.0f,10.0f });
-    object3d_3->SetScale({ 10.0f,10.0f,10.0f });
-
-    object3d_1->SetCamera(camera_);
-    object3d_2->SetCamera(camera_);
-    object3d_3->SetCamera(camera_);
+    //object3d_1->SetPosition({ 0,-10,0 });
+   
 
     particle1_ = Particle::LoadFromParticleTexture("particle.png");
     pm1_ = ParticleManager::Create();
@@ -121,41 +111,43 @@ void MyGame::Initialize()
     object1->PlayAnimation();
 
     
-    //models.insert(std::make_pair("ground", model_1));
-    //models.insert(std::make_pair("ball", model_2));
+    models.insert(std::make_pair("ground", model_1));
+    models.insert(std::make_pair("ball", model_2));
+    models.insert(std::make_pair("skydome", model_3));
+    models.insert(std::make_pair("sphere", model_4));
     
-    
 
-    //// レベルデータからオブジェクトを生成、配置
-    //for (auto& objectData : jsonData->objects) {
-    //    // ファイル名から登録済みモデルを検索
-    //    Model* model = nullptr;
-    //    decltype(models)::iterator it = models.find(objectData.fileName);
-    //    if (it != models.end()) {
-    //        model = it->second;
-    //    }
+    // レベルデータからオブジェクトを生成、配置
+    for (auto& objectData : jsonData->objects) {
+        // ファイル名から登録済みモデルを検索
+        Model* model = nullptr;
+        decltype(models)::iterator it = models.find(objectData.fileName);
+        if (it != models.end()) {
+            model = it->second;
+        }
 
-    //    // モデルを指定して3Dオブジェクトを生成
-    //    Object3d* newObject = Object3d::Create();
+        // モデルを指定して3Dオブジェクトを生成
+        Object3d* newObject = Object3d::Create();
+        newObject->SetModel(model);
+        // 座標
+        DirectX::XMFLOAT3 pos;
+        DirectX::XMStoreFloat3(&pos, objectData.translation);
+        newObject->SetPosition(pos);
 
-    //    // 座標
-    //    DirectX::XMFLOAT3 pos;
-    //    DirectX::XMStoreFloat3(&pos, objectData.translation);
-    //    newObject->SetPosition(pos);
+        // 回転角
+        DirectX::XMFLOAT3 rot;
+        DirectX::XMStoreFloat3(&rot, objectData.rotation);
+        newObject->SetRotation(rot);
 
-    //    // 回転角
-    //    DirectX::XMFLOAT3 rot;
-    //    DirectX::XMStoreFloat3(&rot, objectData.rotation);
-    //    newObject->SetRotation(rot);
+        // 座標
+        DirectX::XMFLOAT3 scale;
+        DirectX::XMStoreFloat3(&scale, objectData.scaling);
+        newObject->SetScale(scale);
 
-    //    // 座標
-    //    DirectX::XMFLOAT3 scale;
-    //    DirectX::XMStoreFloat3(&scale, objectData.scaling);
-    //    newObject->SetScale(scale);
-
-    //    // 配列に登録
-    //    objects.push_back(newObject);
-    //}
+        newObject->SetCamera(camera_);
+        // 配列に登録
+        objects.push_back(newObject);
+    }
 
 #pragma endregion 最初のシーンを初期化
 }
@@ -170,28 +162,25 @@ void MyGame::Finalize()
 #pragma endregion 最初のシーンの終了
 
 #pragma region 基盤システムの終了
-    //スプライト共通部解放
-    delete spriteCommon;
-    //入力解放
-    delete input;
-    //DirectX解放
-    delete dxCommon;
+    
 
     delete postEffect;
 
-    delete object3d_1;
-    delete object3d_2;
-    delete object3d_3;
+    for (auto& object : objects) {
+        delete object;
+
+    }
     delete object1;
 
     delete model_1;
     delete model_2;
+    delete model_3;
+    delete model_4;
     delete model1;
     
     SNFramework::Finalize();
-    delete audio;
-    //WindowsAPI解放
-    delete winApp;
+    
+    
 #pragma endregion 基盤システムの終了
 }
 
@@ -238,11 +227,13 @@ void MyGame::Update()
 
     postEffect->Update();
 
-    object3d_1->Update();
+    /*object3d_1->Update();
     object3d_2->Update();
     object3d_3->Update();
-
-    
+    object3d_4->Update();*/
+    for (auto& object : objects) {
+        object->Update();
+    }
 
     object1->Update();
     
@@ -253,7 +244,6 @@ void MyGame::Update()
     imGui->Begin();
 
     //ImGui::ShowDemoWindow();
-   
     
 
     imGui->End();
@@ -264,25 +254,18 @@ void MyGame::Update()
 
 void MyGame::Draw()
 {
-    postEffect->PreDrawScene(dxCommon->GetCommandList());
-    //spriteCommon->PreDraw();
+    postEffect->PreDraw(dxCommon->GetCommandList());
     
-    //postEffect->Draw(dxCommon->GetCommandList());
-    //spriteCommon->PostDraw();
-    postEffect->PostDrawScene(dxCommon->GetCommandList());
-   
-    //描画前処理
-    dxCommon->PreDraw();
-
+    
 #pragma region 最初のシーンの描画
     spriteCommon->PreDraw();
     //sprite->Draw();
     //sprite2->Draw();
-    
-    //sprite->Draw();
-    
 
-    
+    sprite->Draw();
+
+
+
     spriteCommon->PostDraw();
     ParticleManager::PreDraw(dxCommon->GetCommandList());
     //pm1_->Draw();
@@ -290,9 +273,9 @@ void MyGame::Draw()
     ParticleManager::PostDraw();
 
     Object3d::PreDraw(dxCommon->GetCommandList());
-    //object3d_1->Draw();
-    //object3d_2->Draw();
-    //object3d_3->Draw();
+    /* for (auto& object : objects) {
+         object->Draw();
+     }*/
 
     Object3d::PostDraw();
 
@@ -301,6 +284,16 @@ void MyGame::Draw()
     object1->Draw(dxCommon->GetCommandList());
 
     ObjectFBX::PostDraw();
+    
+    
+    postEffect->PostDraw(dxCommon->GetCommandList());
+   
+    //描画前処理
+    dxCommon->PreDraw();
+
+    postEffect->Draw(dxCommon->GetCommandList());
+
+
 
     imGui->Draw();
 #pragma endregion 最初のシーンの描画

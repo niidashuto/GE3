@@ -39,10 +39,13 @@ private:
 
 	Model* model_1 = nullptr;
 	Model* model_2 = nullptr;
+	Model* model_3 = nullptr;
+	Model* model_4 = nullptr;
 	//3Dオブジェクト生成
 	Object3d* object3d_1 = nullptr;
 	Object3d* object3d_2 = nullptr;
 	Object3d* object3d_3 = nullptr;
+	Object3d* object3d_4 = nullptr;
 
 	Camera* camera_ = nullptr;
 
@@ -63,6 +66,8 @@ private:
 	JsonData* jsonData = nullptr;
 
 	std::map<std::string, Model*> models;
+
+	//std::map<std::string, FbxModel*> models;
 
 	std::vector<Object3d*> objects;
 

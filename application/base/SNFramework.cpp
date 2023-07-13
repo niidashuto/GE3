@@ -3,25 +3,36 @@
 void SNFramework::Initialize()
 {
 	//WindowsAPIの初期化
-	winApp = new WinApp();
-	winApp->Initialize();
+	
+	winApp = WinApp::GetInstance();
 
 	//DirectXの初期化
-	dxCommon = new DirectXCommon();
-	dxCommon->Initialize(winApp);
+	
+	dxCommon = DirectXCommon::GetInstance();
 
 	//スプライト共通部の初期化
-	spriteCommon = new SpriteCommon();
-	spriteCommon->Initialize(dxCommon);
+	
+	spriteCommon = SpriteCommon::GetInstance();
 
 	//入力の初期化
-	input = new Input();
+	input = Input::GetInstance();
+
+	
+	audio = Audio::GetInstance();
+
+	winApp->Initialize();
+
+	dxCommon->Initialize(winApp);
+
+	spriteCommon->Initialize(dxCommon);
+
 	input->Initialize(winApp);
 
-	audio = new Audio();
 	audio->Initialize();
 
 	FbxLoader::GetInstance()->Initialize(dxCommon->GetDevice());
+
+	
 
 }
 
@@ -33,9 +44,12 @@ void SNFramework::Update()
 void SNFramework::Finalize()
 {
 	audio->Finalize();
-	winApp->Finalize();
-	FbxLoader::GetInstance()->Finalize();
 	
+	FbxLoader::GetInstance()->Finalize();
+
+
+	
+	winApp->Finalize();
 }
 
 bool SNFramework::IsEndRequest()

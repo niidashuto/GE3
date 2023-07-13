@@ -45,7 +45,7 @@
         },
         {
             "type": "MESH",
-            "name": "Plane001",
+            "name": "Ground",
             "transform": {
                 "translation": [
                     0.0,
@@ -67,7 +67,95 @@
         },
         {
             "type": "MESH",
-            "name": "Sphere001",
+            "name": "Player",
+            "transform": {
+                "translation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "file_name": "chr_sword"
+        },
+        {
+            "type": "MESH",
+            "name": "Sphere1",
+            "transform": {
+                "translation": [
+                    1.8670979738235474,
+                    3.572786808013916,
+                    2.2164998054504395
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "file_name": "sphere"
+        },
+        {
+            "type": "MESH",
+            "name": "Sphere2",
+            "transform": {
+                "translation": [
+                    1.8670979738235474,
+                    -5.662085056304932,
+                    0.9246617555618286
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "file_name": "sphere"
+        },
+        {
+            "type": "MESH",
+            "name": "Sphere3",
+            "transform": {
+                "translation": [
+                    -7.8948516845703125,
+                    -2.407788038253784,
+                    0.9246617555618286
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "file_name": "sphere"
+        },
+        {
+            "type": "MESH",
+            "name": "Skydome",
             "transform": {
                 "translation": [
                     0.0,
@@ -86,50 +174,6 @@
                 ]
             },
             "file_name": "skydome"
-        },
-        {
-            "type": "MESH",
-            "name": "球_球.002",
-            "transform": {
-                "translation": [
-                    0.0,
-                    0.0,
-                    0.9160611629486084
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            },
-            "file_name": "ball"
-        },
-        {
-            "type": "MESH",
-            "name": "sphere.001",
-            "transform": {
-                "translation": [
-                    3.8176138401031494,
-                    4.569068431854248,
-                    0.7126906514167786
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            },
-            "file_name": "sphere"
         }
     ]
 }

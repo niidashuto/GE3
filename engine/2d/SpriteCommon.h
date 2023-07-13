@@ -37,7 +37,7 @@ protected://静的メンバ変数
 	//デフォルトテクスチャ格納ディレクトリ
 	static std::string kDefaultTextureDirectoryPath;
 protected:
-	DirectXCommon* dxCommon_ = nullptr;
+	DirectXCommon* dxCommon_;
 
 	Microsoft::WRL::ComPtr<ID3D12PipelineState> pipelineState;
 
