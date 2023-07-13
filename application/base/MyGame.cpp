@@ -262,7 +262,7 @@ void MyGame::Draw()
     //sprite->Draw();
     //sprite2->Draw();
 
-    sprite->Draw();
+    //sprite->Draw();
 
 
 
