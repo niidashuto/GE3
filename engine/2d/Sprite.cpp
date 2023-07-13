@@ -253,6 +253,8 @@ void Sprite::Update()
 		vertMap[i] = vertices[i];//座標をコピー
 	}
 
+	vertBuff->Unmap(0, nullptr);
+
 	constMapMaterial->color = color_;
 
 	//ワールド

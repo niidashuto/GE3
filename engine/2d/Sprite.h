@@ -29,6 +29,7 @@ public:
 		LT,//¶ã
 		RB,//‰E‰º
 		RT,//‰Eã
+		verticesCount,
 	};
 
 public://ƒƒ“ƒoŠÖ”

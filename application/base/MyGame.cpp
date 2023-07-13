@@ -25,9 +25,9 @@ void MyGame::Initialize()
 
     postEffect = new PostEffect();
     
-    postEffect->Initialize(spriteCommon, 0);
+    postEffect->Initialize(spriteCommon);
 
-    postEffect->SetSize({ 500,500 });
+    //postEffect->SetSize({ 500,500 });
     
     
     
@@ -59,8 +59,8 @@ void MyGame::Initialize()
     //sprite->Initialize(spriteCommon, 1);
 
     sprite = new Sprite();
-    sprite->SetTextureIndex(0),
-    sprite->Initialize(spriteCommon, 0);
+    //sprite->SetTextureIndex(1),
+    sprite->Initialize(spriteCommon,1);
 
     /*sprite2 = new Sprite();
     sprite2->SetTextureIndex(0);
@@ -262,7 +262,7 @@ void MyGame::Draw()
     //sprite->Draw();
     //sprite2->Draw();
 
-    //sprite->Draw();
+    sprite->Draw();
 
 
 
