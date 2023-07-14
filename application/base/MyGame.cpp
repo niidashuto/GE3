@@ -74,7 +74,7 @@ void MyGame::Initialize()
     model_1 = Model::LoadFromOBJ("ground");
     model_2 = Model::LoadFromOBJ("ball");
     model_3 = Model::LoadFromOBJ("skydome");
-    model_4 = Model::LoadFromOBJ("sphere");
+    model_4 = Model::LoadFromOBJ("sphere1");
 
    
     //3Dオブジェクトの位置を指定
@@ -273,7 +273,7 @@ void MyGame::Draw()
     ParticleManager::PostDraw();
 
     Object3d::PreDraw(dxCommon->GetCommandList());
-    /* for (auto& object : objects) {
+     /*for (auto& object : objects) {
          object->Draw();
      }*/
 
