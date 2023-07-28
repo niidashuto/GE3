@@ -56,8 +56,10 @@ private:
 	ParticleManager* pm2_ = nullptr;
 
 	FbxModel* model1 = nullptr;
+	FbxModel* model2 = nullptr;
 
 	ObjectFBX* object1 = nullptr;
+	ObjectFBX* object2 = nullptr;
 
 	PostEffect* postEffect = nullptr;
 

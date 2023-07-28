@@ -94,6 +94,7 @@ void MyGame::Initialize()
     pm2_->SetCamera(camera_);
 
     model1 = FbxLoader::GetInstance()->LoadModelFromFile("boneTest");
+    model2 = FbxLoader::GetInstance()->LoadModelFromFile("cube");
 
     ObjectFBX::SetDevice(dxCommon->GetDevice());
 
@@ -105,6 +106,9 @@ void MyGame::Initialize()
     object1->Initialize();
     object1->SetModel(model1);
     object1->SetRotation({ 0,90,0 });
+    object2 = new ObjectFBX;
+    object2->Initialize();
+    object2->SetModel(model2);
     camera_->SetTarget({ 0,2.5f,0 });
     camera_->SetEye({ 0,0,8.0f });
     //camera_->SetEye({ 0,0,0 });
@@ -171,12 +175,14 @@ void MyGame::Finalize()
 
     }
     delete object1;
+    delete object2;
 
     delete model_1;
     delete model_2;
     delete model_3;
     delete model_4;
     delete model1;
+    delete model2;
     
     SNFramework::Finalize();
     
@@ -236,7 +242,7 @@ void MyGame::Update()
     }
 
     object1->Update();
-    
+    object2->Update();
 
     pm1_->Update();
     pm2_->Update();
@@ -262,7 +268,7 @@ void MyGame::Draw()
     //sprite->Draw();
     //sprite2->Draw();
 
-    sprite->Draw();
+    //sprite->Draw();
 
 
 
@@ -282,6 +288,7 @@ void MyGame::Draw()
     ObjectFBX::PreDraw(dxCommon->GetCommandList());
 
     object1->Draw(dxCommon->GetCommandList());
+    object2->Draw(dxCommon->GetCommandList());
 
     ObjectFBX::PostDraw();
     

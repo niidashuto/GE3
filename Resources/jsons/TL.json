@@ -45,6 +45,28 @@
         },
         {
             "type": "MESH",
+            "name": "球_球.002",
+            "transform": {
+                "translation": [
+                    0.0,
+                    0.0,
+                    0.7715324759483337
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "file_name": "ball"
+        },
+        {
+            "type": "MESH",
             "name": "Plane001",
             "transform": {
                 "translation": [
@@ -89,34 +111,12 @@
         },
         {
             "type": "MESH",
-            "name": "球_球.002",
+            "name": "ICO球.001",
             "transform": {
                 "translation": [
                     0.0,
-                    0.0,
-                    0.9160611629486084
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            },
-            "file_name": "ball"
-        },
-        {
-            "type": "MESH",
-            "name": "sphere.001",
-            "transform": {
-                "translation": [
-                    3.8176138401031494,
-                    14.193649291992188,
-                    0.7126906514167786
+                    -6.808076858520508,
+                    0.7712823152542114
                 ],
                 "rotation": [
                     0.0,
